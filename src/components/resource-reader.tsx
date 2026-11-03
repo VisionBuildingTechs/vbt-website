@@ -5,8 +5,12 @@ import Link from "next/link";
 import { resources } from "@/lib/content";
 import "./resource-reader.css";
 
+const compactReaderQuery =
+  "(max-width: 760px), (max-width: 1000px) and (max-height: 500px)";
+
 export default function ResourceReader() {
   const [active, setActive] = useState(0);
+  const [compact, setCompact] = useState(false);
   const menuRef = useRef<HTMLElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const panels = useRef<(HTMLElement | null)[]>([]);
@@ -28,9 +32,12 @@ export default function ResourceReader() {
       const headerHeight =
         document.querySelector(".site-header")?.getBoundingClientRect()
           .height ?? 100;
+      const menuHeight = window.matchMedia(compactReaderQuery).matches
+        ? (menuRef.current?.getBoundingClientRect().height ?? 0)
+        : 0;
       if (focusPanel) panel.focus({ preventScroll: true });
       window.scrollBy({
-        top: panel.getBoundingClientRect().top - headerHeight - 20,
+        top: panel.getBoundingClientRect().top - headerHeight - menuHeight - 20,
         behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
           ? "instant"
           : "smooth",
@@ -39,6 +46,10 @@ export default function ResourceReader() {
   }
 
   useEffect(() => {
+    const compactQuery = window.matchMedia(compactReaderQuery);
+    function syncLayout() {
+      setCompact(compactQuery.matches);
+    }
     function readLocation() {
       const index = resources.findIndex(
         (resource) => window.location.hash === `#lectura-${resource.slug}`,
@@ -52,9 +63,12 @@ export default function ResourceReader() {
         setActive(0);
       }
     }
+    syncLayout();
     readLocation();
+    compactQuery.addEventListener("change", syncLayout);
     window.addEventListener("hashchange", readLocation);
     return () => {
+      compactQuery.removeEventListener("change", syncLayout);
       window.removeEventListener("hashchange", readLocation);
       cancelAnimationFrame(scrollFrame.current);
     };
@@ -96,7 +110,7 @@ export default function ResourceReader() {
           className="resource-reader-tabs"
           role="tablist"
           aria-label="Lecturas del proyecto"
-          aria-orientation="vertical"
+          aria-orientation={compact ? "horizontal" : "vertical"}
         >
           {resources.map((resource, index) => (
             <button
