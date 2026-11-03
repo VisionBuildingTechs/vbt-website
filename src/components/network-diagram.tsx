@@ -47,13 +47,10 @@ export default function NetworkDiagram() {
             Qué querés construir, dónde y con qué equipo ya estás trabajando.
           </p>
         </div>
-        <div className="network-map-connector" aria-hidden="true">
-          <svg viewBox="0 0 900 70" preserveAspectRatio="none">
-            <path d="M450 0V25M150 70V25H750V70M450 25V70" />
-            <circle cx="450" cy="25" r="4" />
-          </svg>
+        <div className="network-map-split">
+          <span className="network-map-junction" aria-hidden="true" />
+          <p className="network-map-coordination">Trabajan en coordinación</p>
         </div>
-        <p className="network-map-coordination">Trabajan en coordinación</p>
         <div
           className="network-map-roles"
           role="list"
@@ -71,14 +68,8 @@ export default function NetworkDiagram() {
             </article>
           ))}
         </div>
-        <div
-          className="network-map-connector network-map-join"
-          aria-hidden="true"
-        >
-          <svg viewBox="0 0 900 70" preserveAspectRatio="none">
-            <path d="M150 0V35H750V0M450 35V70" />
-            <circle cx="450" cy="35" r="4" />
-          </svg>
+        <div className="network-map-join" aria-hidden="true">
+          <span className="network-map-junction" />
         </div>
         <div className="network-map-result">
           <h3>Tu obra, con responsabilidades claras.</h3>

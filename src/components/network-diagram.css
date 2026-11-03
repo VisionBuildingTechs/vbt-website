@@ -2,6 +2,9 @@
   padding-top: 20px;
 }
 .network-map {
+  --network-gap: 30px;
+  --network-edge: calc((100% - var(--network-gap) - var(--network-gap)) / 6);
+  --network-line: #9baab1;
   margin: 0;
 }
 .network-map-project {
@@ -26,41 +29,79 @@
   margin: 0;
   color: #52636e;
 }
-.network-map-connector {
-  height: 70px;
+.network-map-split,
+.network-map-join {
+  position: relative;
 }
-.network-map-connector svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
+.network-map-split {
+  height: 90px;
 }
-.network-map-connector path {
-  fill: none;
-  stroke: #a9b7b8;
-  stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
+.network-map-split::before,
+.network-map-split::after,
+.network-map-join::before,
+.network-map-join::after,
+.network-map-role::before,
+.network-map-role::after {
+  content: "";
+  position: absolute;
+  background: var(--network-line);
 }
-.network-map-connector circle {
-  fill: var(--blue);
+.network-map-split::before {
+  left: calc(50% - 0.5px);
+  top: 0;
+  height: 61px;
+  width: 1px;
+}
+.network-map-split::after {
+  left: var(--network-edge);
+  right: var(--network-edge);
+  top: 60px;
+  height: 1px;
+}
+.network-map-junction {
+  position: absolute;
+  left: 50%;
+  top: 60px;
+  width: 7px;
+  height: 7px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--blue);
+  z-index: 1;
 }
 .network-map-coordination {
-  text-align: center;
-  font-size: 11px;
+  position: absolute;
+  top: 14px;
+  left: calc(50% + 18px);
+  font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  line-height: 1.6;
   color: #60717a;
-  margin: 0 0 20px;
+  margin: 0;
 }
 .network-map-roles {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 30px;
+  gap: var(--network-gap);
 }
 .network-map-role {
+  position: relative;
   padding: 32px;
   border: 1px solid #cbd3d4;
   min-width: 0;
+}
+.network-map-role::before,
+.network-map-role::after {
+  left: calc(50% - 0.5px);
+  width: 1px;
+  height: 31px;
+}
+.network-map-role::before {
+  top: -31px;
+}
+.network-map-role::after {
+  bottom: -31px;
 }
 .network-role-label {
   font-size: 10px;
@@ -91,7 +132,26 @@
 .network-role-vbt > p:last-child {
   color: #d4dce2;
 }
+.network-map-join {
+  height: 60px;
+}
+.network-map-join::before {
+  left: var(--network-edge);
+  right: var(--network-edge);
+  top: 30px;
+  height: 1px;
+}
+.network-map-join::after {
+  left: calc(50% - 0.5px);
+  top: 30px;
+  bottom: 0;
+  width: 1px;
+}
+.network-map-join .network-map-junction {
+  top: 30px;
+}
 .network-map-result {
+  border: 1px solid #cbd3d4;
   border-top: 2px solid var(--blue);
   max-width: 700px;
   margin: 0 auto;
@@ -119,8 +179,8 @@
   margin: 20px auto 0;
 }
 @media (max-width: 1000px) {
-  .network-map-roles {
-    gap: 20px;
+  .network-map {
+    --network-gap: 20px;
   }
   .network-map-role {
     padding: 25px;
@@ -130,57 +190,97 @@
   .network-map-section {
     padding-top: 0;
   }
+  .network-map {
+    padding-left: 24px;
+  }
+  .network-map-project,
+  .network-map-role,
+  .network-map-result {
+    border: 0;
+    box-shadow: inset 0 0 0 1px #cbd3d4;
+  }
+  .network-role-vbt {
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
   .network-map-project {
+    position: relative;
     padding: 25px;
+    margin: 0;
+    max-width: none;
   }
   .network-map-project h3 {
     font-size: 32px;
   }
-  .network-map-connector {
-    height: 35px;
+  .network-map-project::before,
+  .network-map-project::after,
+  .network-map-roles::before,
+  .network-map-result::before,
+  .network-map-result::after {
+    content: "";
+    position: absolute;
+    background: var(--network-line);
   }
-  .network-map-connector svg {
+  .network-map-project::before,
+  .network-map-result::before {
+    top: 50%;
+    left: -24px;
+    width: 24px;
+    height: 1px;
+  }
+  .network-map-project::after {
+    left: -24px;
+    top: 50%;
+    bottom: 0;
+    width: 1px;
+  }
+  .network-map-split,
+  .network-map-join {
+    margin-left: -24px;
+    padding-left: 24px;
+  }
+  .network-map-split {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .network-map-split::before,
+  .network-map-join::before {
+    left: 0;
+    right: auto;
+    top: 0;
+    width: 1px;
+    height: 100%;
+  }
+  .network-map-split::after,
+  .network-map-join::after,
+  .network-map-junction {
     display: none;
   }
-  .network-map-connector::after {
-    content: "";
-    display: block;
-    height: 100%;
-    width: 1px;
-    margin: auto;
-    background: #a9b7b8;
-  }
   .network-map-coordination {
+    position: static;
+    text-align: center;
     font-size: 10px;
-    margin: 0 0 20px;
   }
   .network-map-roles {
-    grid-template-columns: 1fr;
     position: relative;
-    padding-left: 22px;
+    grid-template-columns: 1fr;
     gap: 18px;
   }
   .network-map-roles::before {
-    content: "";
-    position: absolute;
+    left: -24px;
     top: 0;
     bottom: 0;
-    left: 0;
     width: 1px;
-    background: #a9b7b8;
-  }
-  .network-map-role {
-    position: relative;
-    padding: 25px;
   }
   .network-map-role::before {
-    content: "";
-    position: absolute;
-    width: 22px;
+    top: 50%;
+    left: -24px;
+    width: 24px;
     height: 1px;
-    background: #a9b7b8;
-    top: 35px;
-    left: -23px;
+  }
+  .network-map-role::after {
+    display: none;
   }
   .network-role-label {
     margin-bottom: 18px;
@@ -188,7 +288,25 @@
   .network-map-role h3 {
     font-size: 30px;
   }
+  .network-map-join {
+    height: 35px;
+  }
   .network-map-result {
-    padding-inline: 0;
+    position: relative;
+    padding: 25px;
+    margin: 0;
+    max-width: none;
+    box-shadow:
+      inset 0 2px var(--blue),
+      inset 0 0 0 1px #cbd3d4;
+  }
+  .network-map .network-map-result h3 {
+    font-size: clamp(22px, 6.5vw, 28px);
+  }
+  .network-map-result::after {
+    left: -24px;
+    top: 0;
+    height: 50%;
+    width: 1px;
   }
 }
