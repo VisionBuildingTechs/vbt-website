@@ -881,6 +881,8 @@
   }
   .inner-breadcrumb {
     margin-bottom: 35px;
+    flex-wrap: wrap;
+    row-gap: 6px;
   }
   .inner-hero h1 {
     font-size: clamp(40px, 10vw, 65px);

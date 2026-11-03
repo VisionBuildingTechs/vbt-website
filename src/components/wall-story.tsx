@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import "./wall-story.css";
 
@@ -234,13 +234,15 @@ function WallDrawing({ stage, progress }: { stage: number; progress: number }) {
 
 export default function WallStory() {
   const sectionRef = useRef<HTMLElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const modeAnchor = useRef<{ stage: number; visualTop: number } | null>(null);
   const [stage, setStage] = useState(0);
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [compact, setCompact] = useState(false);
-  const [scrollRequested, setScrollRequested] = useState(false);
-  const manual = compact || (reducedMotion && !scrollRequested);
+  const [mode, setMode] = useState<"scroll" | "manual">("scroll");
+  const manual = mode === "manual";
   const titleId = useId();
   const storyId = useId();
 
@@ -260,6 +262,47 @@ export default function WallStory() {
     };
   }, []);
 
+  function focusLine() {
+    if (!compact) return window.innerHeight * 0.5;
+    // The active text sits below the sticky scene on a narrow screen.
+    const bottom = visualRef.current?.getBoundingClientRect().bottom ?? 0;
+    return Math.min(
+      window.innerHeight - 28,
+      Math.max(
+        window.innerHeight * 0.55,
+        bottom + Math.max(48, (window.innerHeight - bottom) * 0.45),
+      ),
+    );
+  }
+
+  useLayoutEffect(() => {
+    const anchor = modeAnchor.current;
+    if (!anchor || !visualRef.current) return;
+    modeAnchor.current = null;
+    if (manual) {
+      const headerOffset =
+        parseFloat(
+          getComputedStyle(document.documentElement).scrollPaddingTop,
+        ) || 80;
+      const destination = Math.max(
+        headerOffset,
+        Math.min(anchor.visualTop, window.innerHeight * 0.3),
+      );
+      window.scrollBy({
+        top: visualRef.current.getBoundingClientRect().top - destination,
+        behavior: "instant",
+      });
+    } else {
+      const target = stepRefs.current[anchor.stage]?.getBoundingClientRect();
+      if (target) {
+        window.scrollBy({
+          top: target.top + target.height / 2 - focusLine(),
+          behavior: "instant",
+        });
+      }
+    }
+  }, [mode]);
+
   useEffect(() => {
     if (manual) return;
     let frame = 0;
@@ -274,8 +317,7 @@ export default function WallStory() {
       const firstMiddle = first.top + first.height / 2;
       const lastMiddle = last.top + last.height / 2;
       const next = clamp(
-        (window.innerHeight * 0.5 - firstMiddle) /
-          Math.max(1, lastMiddle - firstMiddle),
+        (focusLine() - firstMiddle) / Math.max(1, lastMiddle - firstMiddle),
       );
       setProgress(next);
       setStage(Math.round(next * (steps.length - 1)));
@@ -291,18 +333,29 @@ export default function WallStory() {
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, [manual]);
+  }, [manual, compact]);
 
   const goTo = (next: number) => {
     const target = Math.round(clamp(next, 0, steps.length - 1));
     setStage(target);
     setProgress(target / (steps.length - 1));
-    if (!manual)
-      stepRefs.current[target]?.scrollIntoView({
-        behavior: reducedMotion ? "instant" : "smooth",
-        block: "center",
-      });
+    if (!manual) {
+      const bounds = stepRefs.current[target]?.getBoundingClientRect();
+      if (bounds)
+        window.scrollBy({
+          top: bounds.top + bounds.height / 2 - focusLine(),
+          behavior: reducedMotion ? "instant" : "smooth",
+        });
+    }
   };
+
+  function toggleMode() {
+    modeAnchor.current = {
+      stage,
+      visualTop: visualRef.current?.getBoundingClientRect().top ?? 80,
+    };
+    setMode(manual ? "scroll" : "manual");
+  }
 
   return (
     <section
@@ -313,15 +366,14 @@ export default function WallStory() {
       <div className="wall-story-heading">
         <p className="wall-eyebrow">Una mirada al interior</p>
         <h2 id={titleId}>
-          Del panel
-          <br />
+          Del panel <br />
           al muro.
         </h2>
         <p>Descubrí cómo se relacionan los materiales, paso a paso.</p>
       </div>
       <div className="wall-story-layout">
         <div className="wall-visual-column">
-          <div className="wall-visual-sticky">
+          <div className="wall-visual-sticky" ref={visualRef}>
             <div className="wall-visual-topline">
               <span>La tecnología en construcción</span>
               <span aria-hidden="true">
@@ -335,18 +387,17 @@ export default function WallStory() {
                 Vista interior explicativa
               </span>
             </div>
-            {!compact && reducedMotion && (
-              <button
-                type="button"
-                className="wall-mode-switch"
-                onClick={() => setScrollRequested(!scrollRequested)}
-                aria-pressed={scrollRequested}
-              >
-                {scrollRequested
-                  ? "Volver al control por etapas"
-                  : "Activar recorrido con scroll"}
-              </button>
-            )}
+            <button
+              type="button"
+              className="wall-mode-switch"
+              onClick={toggleMode}
+              aria-pressed={manual}
+              aria-controls={storyId}
+            >
+              {manual
+                ? "Volver al recorrido con scroll"
+                : "Controlar por etapas"}
+            </button>
             <div
               className="wall-controls"
               aria-label="Controlar las etapas del muro"

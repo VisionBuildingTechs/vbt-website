@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Arrow } from "./icons";
 
 const items = [
@@ -14,14 +14,33 @@ const items = [
 ];
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   const path = usePathname();
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape" && open) {
+        setOpen(false);
+        menuButton.current?.focus();
+      }
     };
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
-  }, []);
+  }, [open]);
+  useEffect(() => {
+    if (!open) return;
+    const mobile = window.matchMedia("(max-width: 800px)");
+    if (!mobile.matches) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnDesktop = () => {
+      if (!mobile.matches) setOpen(false);
+    };
+    mobile.addEventListener("change", closeOnDesktop);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      mobile.removeEventListener("change", closeOnDesktop);
+    };
+  }, [open]);
   return (
     <header className="site-header">
       <div className="container header-inner">
@@ -45,6 +64,7 @@ export default function Header() {
           </span>
         </Link>
         <button
+          ref={menuButton}
           className="menu-toggle"
           aria-expanded={open}
           aria-controls="main-navigation"

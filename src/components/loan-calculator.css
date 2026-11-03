@@ -38,12 +38,14 @@
 .loan-inputs {
   display: grid;
   gap: 25px;
+  min-width: 0;
 }
 .loan-inputs label {
   display: grid;
   gap: 10px;
   font-size: 12px;
   font-weight: 600;
+  min-width: 0;
 }
 .loan-inputs label > small {
   font-size: 10px;
@@ -102,6 +104,7 @@
 }
 .loan-mode {
   border: 0;
+  min-width: 0;
   padding: 0;
   margin: 0 0 5px;
   display: flex;
@@ -397,6 +400,7 @@
   font-weight: 650;
   letter-spacing: -0.025em;
   margin-top: 7px;
+  overflow-wrap: anywhere;
 }
 .loan-total > small {
   font-size: 9px;
@@ -477,6 +481,7 @@
 }
 .loan-table-wrap {
   overflow: auto;
+  max-width: 100%;
   max-height: 510px;
   border: 1px solid #c6ceca;
 }
@@ -610,6 +615,16 @@
   .loan-inputs {
     gap: 23px;
   }
+  .loan-advance-line > input {
+    height: 32px;
+  }
+  .loan-term-buttons button,
+  .loan-references button,
+  .loan-uva > button,
+  .loan-extra > summary,
+  .loan-schedule > summary {
+    min-height: 44px;
+  }
   .loan-assumptions {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -627,6 +642,15 @@
   .loan-result-breakdown > div,
   .loan-key-values > div {
     font-size: 12px;
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+  .loan-result-breakdown strong,
+  .loan-key-values dd {
+    max-width: 100%;
+    margin-left: auto;
+    overflow-wrap: anywhere;
+    white-space: normal;
   }
   .loan-schedule > summary {
     font-size: 13px;

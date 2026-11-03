@@ -730,6 +730,7 @@ summary:focus-visible {
 }
 .contact-form {
   display: grid;
+  min-width: 0;
   gap: 25px;
   max-width: 760px;
 }
@@ -740,6 +741,7 @@ summary:focus-visible {
 }
 .contact-form label:not(.form-consent) {
   display: grid;
+  min-width: 0;
   gap: 10px;
   font-size: 12px;
   font-weight: 600;
@@ -751,6 +753,7 @@ summary:focus-visible {
 .contact-form textarea,
 .contact-form select {
   width: 100%;
+  min-width: 0;
   border: 1px solid #c6cdcd;
   background: #fff;
   color: var(--ink);
@@ -871,6 +874,7 @@ summary:focus-visible {
   }
   .header-inner {
     height: 80px;
+    gap: 16px;
   }
   .brand img {
     width: 58px;
@@ -889,6 +893,7 @@ summary:focus-visible {
     font-size: 12px;
     padding: 10px 0 10px 15px;
     color: var(--ink);
+    min-height: 44px;
   }
   .menu-toggle > span {
     font-size: 23px;
@@ -904,6 +909,7 @@ summary:focus-visible {
     padding: 20px;
     max-height: calc(100dvh - 80px);
     overflow: auto;
+    overscroll-behavior: contain;
     border-bottom: 1px solid var(--line);
   }
   .main-nav.is-open {
@@ -1150,6 +1156,11 @@ summary:focus-visible {
   .form-pair {
     grid-template-columns: 1fr;
   }
+  .contact-form input:not([type="checkbox"]),
+  .contact-form textarea,
+  .contact-form select {
+    font-size: 16px;
+  }
   .contact-draft {
     padding: 20px;
   }
@@ -1179,8 +1190,18 @@ summary:focus-visible {
   .footer-call h2 {
     font-size: 38px;
   }
+  .footer-call {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+  }
   .cases-image {
     min-height: 310px;
+  }
+}
+@media (max-width: 360px) {
+  .brand > span {
+    display: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {

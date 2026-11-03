@@ -260,6 +260,10 @@
   .housing-filters label {
     min-width: 100%;
   }
+  .housing-filters select {
+    min-width: 0;
+    font-size: 16px;
+  }
   .housing-filters > p {
     margin-right: auto;
     padding-bottom: 0;

@@ -6,7 +6,7 @@
 
 Inicio y páginas interiores: tecnología, seis aplicaciones y sus fichas, siete casos integrados en Aplicaciones y sus fichas, recursos con tres PDF y cuatro guías HTML, red, empresa, catálogo residencial y sus fichas, financiación dentro de Viviendas, contacto, FAQ, privacidad y términos. Las rutas anteriores de casos y financiación redirigen a sus nuevas ubicaciones. Página 404 propia y robots de revisión.
 
-El muro representa VBT150 por capas: base, encastre, acero, reservas, control, hormigón, consolidación y terminación parcial. En escritorio responde al desplazamiento; en móvil o con movimiento reducido usa controles manuales. Es conceptual, sin escala ni parámetros de ejecución.
+El muro representa VBT150 por capas: base, encastre, acero, reservas, control, hormigón, consolidación y terminación parcial. El recorrido con scroll es el modo inicial en escritorio y móvil; el visitante puede cambiar a control por etapas y volver al scroll. La escena móvil queda fija sobre los textos con una altura compacta y las ocho etapas disponibles; el modo manual conserva la etapa y reencuadra el control al cambiar. Movimiento reducido elimina transiciones y desplazamientos suaves, sin bloquear el modo elegido. Es conceptual, sin escala ni parámetros de ejecución.
 
 Fotografías del portfolio VBT, visualizaciones y galerías por caso; los renders se distinguen de fotos de obra. Las menciones a IA se retiraron del sitio visible. Axonométricas originales de VBT80/VBT150 incorporadas. Logo transparente del archivo de marca e Inter local con licencia OFL. Acentos puntuales usan el mismo azul del título del inicio.
 
@@ -25,6 +25,8 @@ El catálogo de viviendas incluye los proyectos de 90, 120 y 150 m² publicados 
 ## Verificación
 
 Compilación de producción y TypeScript; recorrido HTTP de enlaces internos con respuesta 200 y un único h1 por página; imágenes, fuentes, robots, 404 y ausencia de JWT en HTML. Se comprueban también encabezado PDF, tamaño completo de las tres descargas y redirecciones de rutas anteriores. Revisión de interacciones en navegador y adaptación de escritorio y móvil.
+
+Revisión móvil del 03/11/2026: 32 páginas recorridas en 320×700, 390×844, 768×1024 y 844×390, sin desbordes horizontales tras corregir cabecera y CTA del pie en el ancho menor. También se verificaron menú con scroll interno/Escape/cambio de orientación, scroll y modo manual del muro, contacto con modelo y destino de WhatsApp, filtros de viviendas, preguntas desplegables y calculadora con capital de hasta 100 billones y tabla con desplazamiento local. Formularios y selector de viviendas usan 16 px o más en móvil; resúmenes financieros largos se ajustan y los controles principales tienen mayor superficie táctil. Resultados detallados y capturas se conservan localmente en documentación ignorada.
 
 ## Lanzamiento posterior
 
