@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { Fragment, type ReactNode } from "react";
 import WallStory from "@/components/wall-story";
 import ContactForm from "@/components/contact-form";
+import LoanCalculator from "@/components/loan-calculator";
+import ProjectMedia, { TechnologyPanels } from "@/components/project-media";
+import { contactRegions, contactEmails } from "@/lib/contact";
 import {
   applications,
   projects,
@@ -153,9 +156,7 @@ function Photo({
   return (
     <figure className={`inner-photo ${className}`}>
       <img src={src} alt={alt} loading="lazy" />
-      <figcaption>
-        Imagen ilustrativa generada con IA. Recurso conceptual reemplazable.
-      </figcaption>
+      <figcaption>Imagen ilustrativa generada con IA.</figcaption>
     </figure>
   );
 }
@@ -219,6 +220,7 @@ function Technology() {
       >
         <div className="inner-inline-links">
           <ArrowLink href="#proceso">Ver cómo se construye</ArrowLink>
+          <ArrowLink href="#paneles">Ver paneles VBT80 y VBT150</ArrowLink>
           <ArrowLink href="/recursos">Explorar recursos</ArrowLink>
         </div>
       </Hero>
@@ -239,14 +241,14 @@ function Technology() {
             construir; cada obra determina cómo se aplica.
           </p>
           <ArrowLink href="/recursos/entender-el-sistema">
-            Leer la explicación del sistema
+            Leer la explicación de la tecnología
           </ArrowLink>
         </div>
       </section>
       <div id="proceso" className="inner-process">
         <WallStory />
       </div>
-      <section className="container inner-section">
+      <section className="container inner-section" id="paneles">
         <div className="inner-section-top">
           <p className="inner-kicker">Dos familias</p>
           <h2>
@@ -255,34 +257,12 @@ function Technology() {
             Montajes diferentes.
           </h2>
         </div>
-        <div className="inner-system-pair">
-          <article>
-            <span className="inner-system-name">80</span>
-            <div>
-              <p className="inner-kicker">VBT80</p>
-              <h3>Deslizamiento vertical.</h3>
-              <p>
-                Paneles y conectores se ensamblan desde arriba, con componentes
-                y detalles propios de esta familia.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span className="inner-system-name">150</span>
-            <div>
-              <p className="inner-kicker">VBT150</p>
-              <h3>Encastre horizontal.</h3>
-              <p>
-                Uniones macho-hembra por encastre. La denominación comercial
-                corresponde al sistema de seis pulgadas: 157 mm exteriores y 152
-                mm interiores.
-              </p>
-            </div>
-          </article>
-        </div>
+        <TechnologyPanels />
         <p className="inner-note">
-          La elección de familia, armado y configuración requiere evaluación del
-          proyecto. Sus piezas y procedimientos no son intercambiables.
+          VBT150 es la denominación comercial de seis pulgadas (157 mm
+          exteriores, 152 mm interiores). La elección de familia, armado y
+          configuración requiere evaluación del proyecto. Sus piezas y
+          procedimientos no son intercambiables.
         </p>
       </section>
       <section className="inner-tinted">
@@ -467,6 +447,7 @@ function Projects() {
               data-sector={p.sector}
             >
               <Link href={`/casos/${p.slug}`}>
+                <ProjectMedia slug={p.slug} compact />
                 <div className="inner-project-head">
                   <span className="inner-index">
                     {String(i + 1).padStart(2, "0")}
@@ -498,6 +479,9 @@ function ProjectDetail({ slug }: { slug: string }) {
         title={p.title}
         text={p.location}
       />
+      <div className="container case-detail-media">
+        <ProjectMedia slug={p.slug} />
+      </div>
       <section className="container inner-section inner-case-detail">
         <aside>
           <p className="inner-kicker">Ficha del antecedente</p>
@@ -1029,9 +1013,12 @@ function Financing() {
     <>
       <Hero
         eyebrow="Financiación"
-        title="Entender el crédito<br/>también es avanzar."
-        text="Información para orientar tu consulta y continuar por los canales oficiales. El banco evalúa y otorga el préstamo; VBT no financia ni aprueba solicitudes."
-      />
+        title="Tu proyecto.<br/>Tus números."
+        text="Calculá un escenario de financiación: aporte propio, monto a pedir, plazo, tasa y cuota inicial. El banco evalúa y otorga el préstamo; VBT no financia ni aprueba solicitudes."
+      >
+        <ArrowLink href="#calculadora">Ir a la calculadora</ArrowLink>
+      </Hero>
+      <LoanCalculator />
       <section className="container inner-section inner-two-column">
         <div>
           <p className="inner-kicker">Banco de la Nación Argentina</p>
@@ -1107,9 +1094,10 @@ function Financing() {
             </article>
           </div>
           <p className="inner-note">
-            No se muestran tasas o cuotas propias sin condiciones verificadas.
-            La simulación bancaria es orientativa y está sujeta a evaluación y
-            aprobación.
+            La calculadora permite explorar supuestos editables. Las referencias
+            bancarias indican segmento y fecha de consulta; no equivalen a una
+            cotización ni a una aprobación. Los resultados no incluyen cargos
+            que no se hayan informado.
           </p>
         </div>
       </section>
@@ -1161,8 +1149,31 @@ function Contact() {
             un arquitecto o constructor, indicalo para acompañar a tu equipo.
           </p>
           <div className="inner-contact-aside">
+            <p className="inner-kicker">Canales directos</p>
+            {Object.values(contactRegions).map((r) => (
+              <div className="contact-channel" key={r.label}>
+                <strong>{r.label}</strong>
+                <a
+                  href={`https://wa.me/${r.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  WhatsApp · {r.phone} ↗
+                </a>
+                <a href={`tel:${r.telephone}`}>Llamar · {r.phone}</a>
+              </div>
+            ))}
+            <div className="contact-channel">
+              <strong>Email</strong>
+              <a href={`mailto:${contactEmails.general}`}>
+                {contactEmails.general}
+              </a>
+              <a href={`mailto:${contactEmails.projects}`}>
+                {contactEmails.projects}
+              </a>
+            </div>
             <p className="inner-kicker">Antes de consultar</p>
-            <Link href="/recursos">Recursos para evaluar el sistema ↗</Link>
+            <Link href="/recursos">Recursos para evaluar la tecnología ↗</Link>
             <Link href="/preguntas-frecuentes">Preguntas frecuentes ↗</Link>
             <Link href="/red">Cómo trabaja la red VBT ↗</Link>
           </div>
@@ -1185,13 +1196,20 @@ function Privacy() {
         <p>
           El formulario prepara un mensaje dentro de tu navegador. No almacena
           tus datos ni envía una consulta automáticamente a VBT. Podés revisar
-          el texto, copiarlo o elegir continuar en WhatsApp.
+          el texto, copiarlo o elegir continuar en WhatsApp o tu aplicación de
+          correo.
         </p>
         <p>
-          Al continuar en WhatsApp, el texto preparado se comparte con ese
-          servicio para abrir la conversación. El mensaje llega al canal VBT
-          cuando confirmás su envío allí. WhatsApp tiene sus propias condiciones
-          y política de privacidad.
+          Al continuar en WhatsApp o email, el texto preparado se abre en ese
+          servicio. El mensaje llega al canal VBT cuando confirmás su envío
+          allí. Cada servicio tiene sus propias condiciones y política de
+          privacidad.
+        </p>
+        <h2>Datos de la calculadora</h2>
+        <p>
+          Los importes, ingresos y escenarios que ingresás se calculan en tu
+          navegador. No se envían a VBT ni al banco. El sitio sólo consulta
+          referencias financieras públicas para mostrar la fuente y su fecha.
         </p>
         <h2>Consultas y derivaciones</h2>
         <p>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Arrow } from "./icons";
+import { contactRegions, contactEmails } from "@/lib/contact";
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -25,7 +26,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <Image
-              src="/brand/logo-vbt.png"
+              src="/brand/logo-vbt-transparent.png"
               width={105}
               height={94}
               alt="Vision Building Technologies"
@@ -39,7 +40,7 @@ export default function Footer() {
           </div>
           <div>
             <h3>Explorar</h3>
-            <Link href="/tecnologia">Tecnología</Link>
+            <Link href="/tecnologia">La tecnología</Link>
             <Link href="/aplicaciones">Aplicaciones</Link>
             <Link href="/casos">Casos de éxito</Link>
             <Link href="/viviendas">Viviendas con VBT</Link>
@@ -48,7 +49,9 @@ export default function Footer() {
             <h3>Conectar</h3>
             <Link href="/recursos">Centro de recursos</Link>
             <Link href="/red">Red VBT</Link>
-            <Link href="/financiacion">Financiación</Link>
+            <Link href="/financiacion#calculadora">
+              Calculadora y financiación
+            </Link>
             <Link href="/contacto">Contacto</Link>
           </div>
           <div>
@@ -60,6 +63,24 @@ export default function Footer() {
             <Link href="/red" className="footer-network">
               Conocé nuestra red <Arrow />
             </Link>
+            <div className="footer-contacts">
+              {Object.values(contactRegions).map((r) => (
+                <a
+                  key={r.label}
+                  href={`https://wa.me/${r.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {r.label} · {r.phone}
+                </a>
+              ))}
+              <a href={`mailto:${contactEmails.general}`}>
+                {contactEmails.general}
+              </a>
+              <a href={`mailto:${contactEmails.projects}`}>
+                {contactEmails.projects}
+              </a>
+            </div>
           </div>
         </div>
         <div className="footer-bottom">

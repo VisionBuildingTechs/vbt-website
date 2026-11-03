@@ -24,6 +24,6 @@ Las imágenes IA están identificadas; no documentan obras reales. Los documento
 
 Proyecto Vercel: `vbt-website`. Configuración local y secretos excluidos de Git. La revisión lleva `noindex` y robots restrictivo; la indexación se habilita junto con el lanzamiento y la estrategia de dominio.
 
-La financiación enlaza a Banco Nación, sin tasas codificadas ni promesas de elegibilidad. INDEC se integrará con `INDEC_API_TOKEN` sólo en servidor; `.env.example` no incluye credenciales.
+La calculadora incluye capital, anticipo, plazo, tasa editable, gastos y amortización. Las referencias BNA tienen fecha de revisión; no constituyen ofertas o aprobación. `/api/finance` consulta UVA del día en BCRA. INDEC queda pendiente y usaría `INDEC_API_TOKEN` sólo en servidor; `.env.example` no incluye credenciales.
 
 Detalles: [implementación](docs/implementation.md).

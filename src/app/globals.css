@@ -1195,3 +1195,43 @@ summary:focus-visible {
     scroll-behavior: auto !important;
   }
 }
+
+/* Identidad y contacto */
+.brand img,
+.footer-logo {
+  background: transparent;
+}
+.footer-contacts {
+  border-top: 1px solid #c4c9c5;
+  margin-top: 20px;
+  padding-top: 16px;
+}
+.footer-contacts a {
+  overflow-wrap: anywhere;
+  font-size: 10px;
+}
+.contact-channel {
+  margin: 18px 0 25px;
+}
+.contact-channel strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+.contact-channel a {
+  overflow-wrap: anywhere;
+}
+.case-detail-media {
+  margin-bottom: 35px;
+}
+.inner-project > .project-media {
+  margin-bottom: 20px;
+}
+
+.loan-calculator {
+  scroll-margin-top: 0;
+}
+@media (min-width: 761px) {
+  .inner-project:first-child .project-media-compact .project-media-frame {
+    aspect-ratio: 21/9;
+  }
+}

@@ -1,10 +1,16 @@
 "use client";
 import { FormEvent, useState } from "react";
 import { Arrow } from "./icons";
+import {
+  contactRegions,
+  contactEmails,
+  type ContactRegion,
+} from "@/lib/contact";
 export default function ContactForm() {
   const [draft, setDraft] = useState("");
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
+  const [region, setRegion] = useState<ContactRegion>("argentina");
   function prepare(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const d = new FormData(e.currentTarget);
@@ -36,6 +42,21 @@ export default function ContactForm() {
         }}
         className="contact-form"
       >
+        <label>
+          ¿Con qué equipo querés conversar?
+          <select
+            value={region}
+            onChange={(e) => setRegion(e.target.value as ContactRegion)}
+            name="region"
+          >
+            <option value="argentina">
+              Argentina · {contactRegions.argentina.phone}
+            </option>
+            <option value="panama">
+              Panamá · {contactRegions.panama.phone}
+            </option>
+          </select>
+        </label>
         <div className="form-pair">
           <label>
             Tu nombre
@@ -104,8 +125,8 @@ export default function ContactForm() {
           Preparar mi consulta <Arrow />
         </button>
         <p className="form-note">
-          Revisás el mensaje y elegís enviarlo por WhatsApp. Este formulario no
-          almacena ni envía tus datos automáticamente.
+          Revisás el mensaje y elegís enviarlo por WhatsApp o email. Este
+          formulario no almacena ni envía tus datos automáticamente.
         </p>
       </form>
       {draft && (
@@ -121,9 +142,15 @@ export default function ContactForm() {
               className="button primary"
               target="_blank"
               rel="noopener noreferrer"
-              href={`https://wa.me/50766284172?text=${encodeURIComponent(draft)}`}
+              href={`https://wa.me/${contactRegions[region].whatsapp}?text=${encodeURIComponent(draft)}`}
             >
               Continuar en WhatsApp <Arrow diagonal />
+            </a>
+            <a
+              className="button secondary"
+              href={`mailto:${contactEmails.general}?subject=${encodeURIComponent("Consulta web VBT · " + contactRegions[region].label)}&body=${encodeURIComponent(draft)}`}
+            >
+              Enviar por email <Arrow diagonal />
             </a>
             <button
               className="button secondary"
@@ -140,8 +167,9 @@ export default function ContactForm() {
             </button>
           </div>
           <p>
-            Usamos el canal de contacto publicado por Vision Latam. El mensaje
-            se envía cuando lo confirmás en WhatsApp.
+            Equipo de {contactRegions[region].label}:{" "}
+            {contactRegions[region].phone}. Revisás y confirmás el envío en
+            WhatsApp o en tu aplicación de correo.
           </p>
         </section>
       )}

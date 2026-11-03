@@ -67,7 +67,7 @@ function WallDrawing({ stage, progress }: { stage: number; progress: number }) {
       aria-labelledby={`wall-title-${instance} wall-description-${instance}`}
     >
       <title id={`wall-title-${instance}`}>
-        Muro conceptual VBT150: {steps[stage].short}
+        {`Muro conceptual VBT150: ${steps[stage].short}`}
       </title>
       <desc id={`wall-description-${instance}`}>
         Vista axonométrica esquemática de perfiles de encofrado permanente con
@@ -323,7 +323,7 @@ export default function WallStory() {
         <div className="wall-visual-column">
           <div className="wall-visual-sticky">
             <div className="wall-visual-topline">
-              <span>El sistema en construcción</span>
+              <span>La tecnología en construcción</span>
               <span aria-hidden="true">
                 {String(stage + 1).padStart(2, "0")} / 08
               </span>
@@ -404,7 +404,7 @@ export default function WallStory() {
           definen para cada proyecto. VBT80 utiliza un montaje diferente.
         </p>
         <Link href="/recursos/entender-el-sistema">
-          Explorar el sistema <span aria-hidden="true">↗</span>
+          Explorar la tecnología <span aria-hidden="true">↗</span>
         </Link>
       </div>
       <details className="wall-text-alternative">

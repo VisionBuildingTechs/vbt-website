@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { Arrow } from "./icons";
 
 const items = [
-  ["Tecnología", "/tecnologia"],
+  ["La tecnología", "/tecnologia"],
   ["Aplicaciones", "/aplicaciones"],
   ["Casos de éxito", "/casos"],
   ["Recursos", "/recursos"],
   ["Red VBT", "/red"],
+  ["Financiación", "/financiacion"],
   ["Empresa", "/empresa"],
 ];
 export default function Header() {
@@ -33,7 +34,7 @@ export default function Header() {
           onClick={() => setOpen(false)}
         >
           <Image
-            src="/brand/logo-vbt.png"
+            src="/brand/logo-vbt-transparent.png"
             width={78}
             height={70}
             priority

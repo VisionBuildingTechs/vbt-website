@@ -126,7 +126,7 @@ export default function Home() {
             </p>
           </div>
           <Link href="/tecnologia" className="text-link">
-            Entender el sistema <Arrow diagonal />
+            Entender la tecnología <Arrow diagonal />
           </Link>
         </div>
       </section>
@@ -179,13 +179,14 @@ export default function Home() {
           <div className="cases-editorial">
             <figure className="cases-image">
               <Image
-                src="/images/obra-detalle.webp"
+                src="/images/projects/dominguez-1.webp"
                 fill
                 sizes="(max-width: 800px) 100vw, 48vw"
-                alt="Visualización ilustrativa de arquitectura y materiales del sistema"
+                alt="Vista aérea de la escuela Francisco Javier Domínguez de Junín"
               />
               <figcaption>
-                Imagen ilustrativa IA. No corresponde a las obras citadas.
+                Escuela Francisco Javier Domínguez · fotografía del portfolio
+                VBT.
               </figcaption>
             </figure>
             <div className="case-links">
@@ -222,7 +223,7 @@ export default function Home() {
           </div>
           <div className="resource-index">
             {[
-              ["01", "Entender el sistema", "entender-el-sistema"],
+              ["01", "Entender la tecnología", "entender-el-sistema"],
               ["02", "Proyectar con VBT", "proyectar-con-vbt"],
               ["03", "Construir y controlar", "montaje-y-obra"],
               ["04", "Usar y mantener", "terminaciones-y-cuidados"],
@@ -284,8 +285,8 @@ export default function Home() {
           <Link href="/viviendas" className="text-link">
             Explorar viviendas <Arrow diagonal />
           </Link>
-          <Link href="/financiacion" className="subtle-link">
-            Conocer opciones de financiación →
+          <Link href="/financiacion#calculadora" className="subtle-link">
+            Calcular financiación →
           </Link>
         </div>
       </section>

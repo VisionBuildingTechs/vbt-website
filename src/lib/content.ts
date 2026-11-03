@@ -219,7 +219,7 @@ export const resources: {
 }[] = [
   {
     slug: "entender-el-sistema",
-    title: "Entender el sistema VBT",
+    title: "Entender la tecnología VBT",
     category: "Entender",
     summary:
       "Los materiales, las funciones y las dos familias que dan forma al muro.",

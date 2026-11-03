@@ -48,6 +48,10 @@ test("Recursos locales disponibles y página desconocida con 404", async () => {
     "/images/obra-detalle.webp",
     "/images/vivienda.webp",
     "/brand/logo-vbt.png",
+    "/brand/logo-vbt-transparent.png",
+    "/images/technology/vbt80-panel.png",
+    "/images/technology/vbt150-panel.png",
+    "/images/projects/dominguez-1.webp",
     "/fonts/InterVariable.woff2",
     "/robots.txt",
   ]) {
@@ -63,4 +67,20 @@ test("Recursos locales disponibles y página desconocida con 404", async () => {
     /Disallow: \//,
     "La revisión no debe indexarse antes del lanzamiento",
   );
+});
+
+test("La referencia financiera identifica fuente y fecha sin inventar UVA", async () => {
+  const response = await fetch(new URL("/api/finance", base));
+  assert.equal(response.status, 200);
+  const data = await response.json();
+  assert.match(data.date, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(new URL(data.referencesSource).hostname, "www.bna.com.ar");
+  assert.ok(data.references.length > 0);
+  if (data.uva !== null) {
+    assert.ok(Number.isFinite(data.uva.value) && data.uva.value > 0);
+    assert.equal(data.uva.date, data.date);
+    assert.equal(new URL(data.uva.source).hostname, "api.bcra.gob.ar");
+  } else {
+    assert.equal(data.uvaStatus, "unavailable");
+  }
 });
