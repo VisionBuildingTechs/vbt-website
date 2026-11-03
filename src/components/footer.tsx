@@ -42,14 +42,14 @@ export default function Footer() {
             <h3>Explorar</h3>
             <Link href="/tecnologia">La tecnología</Link>
             <Link href="/aplicaciones">Aplicaciones</Link>
-            <Link href="/casos">Casos de éxito</Link>
+            <Link href="/aplicaciones#casos">Casos de éxito</Link>
             <Link href="/viviendas">Viviendas con VBT</Link>
           </div>
           <div>
             <h3>Conectar</h3>
             <Link href="/recursos">Centro de recursos</Link>
             <Link href="/red">Red VBT</Link>
-            <Link href="/financiacion#calculadora">
+            <Link href="/viviendas/financiacion#calculadora">
               Calculadora y financiación
             </Link>
             <Link href="/contacto">Contacto</Link>

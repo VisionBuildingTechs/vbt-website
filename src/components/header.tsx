@@ -8,11 +8,9 @@ import { Arrow } from "./icons";
 const items = [
   ["La tecnología", "/tecnologia"],
   ["Aplicaciones", "/aplicaciones"],
-  ["Casos de éxito", "/casos"],
   ["Viviendas", "/viviendas"],
   ["Recursos", "/recursos"],
   ["Red VBT", "/red"],
-  ["Financiación", "/financiacion"],
 ];
 export default function Header() {
   const [open, setOpen] = useState(false);

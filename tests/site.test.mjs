@@ -1,7 +1,27 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { downloads } from "../src/lib/downloads.ts";
 
 const base = process.env.TEST_BASE_URL || "http://127.0.0.1:3000";
+test("Las descargas entregan los PDF completos y las rutas anteriores conservan su destino", async () => {
+  for (const document of downloads) {
+    const response = await fetch(new URL(document.href, base));
+    assert.equal(response.status, 200, document.href);
+    assert.match(response.headers.get("content-type"), /application\/pdf/);
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    assert.equal(bytes.length, document.sizeBytes, document.href);
+    assert.equal(new TextDecoder().decode(bytes.slice(0, 5)), "%PDF-");
+  }
+  for (const [from, to] of [
+    ["/casos", "/aplicaciones#casos"],
+    ["/casos/escuela-dominguez", "/aplicaciones/casos/escuela-dominguez"],
+    ["/financiacion", "/viviendas/financiacion"],
+  ]) {
+    const response = await fetch(new URL(from, base), { redirect: "manual" });
+    assert.equal(response.status, 308, from);
+    assert.equal(response.headers.get("location"), to, from);
+  }
+});
 test("Las páginas enlazadas responden y tienen un único título principal", async () => {
   const queue = ["/"];
   const seen = new Set();

@@ -37,7 +37,7 @@ export const projectMedia: Record<string, ProjectVisual> = {
     src: "/images/projects/salud-conceptual.webp",
     alt: "Ilustración de un centro de atención primaria de una planta en un entorno tropical",
     caption:
-      "Ilustración conceptual generada con IA. No corresponde a un establecimiento de salud identificado.",
+      "Visualización de referencia. No corresponde a un establecimiento de salud identificado.",
     kind: "illustration",
   },
   "viviendas-panama": {

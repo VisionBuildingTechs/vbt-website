@@ -5,22 +5,23 @@ import { Fragment, type ReactNode } from "react";
 import WallStory from "@/components/wall-story";
 import ContactForm from "@/components/contact-form";
 import LoanCalculator from "@/components/loan-calculator";
+import ResourceDownloads from "@/components/resource-downloads";
 import { HousingPage, HousingDetailPage } from "@/components/housing-pages";
 import { houseCatalog } from "@/lib/house-catalog";
 import ProjectMedia, { TechnologyPanels } from "@/components/project-media";
 import { contactRegions, contactEmails } from "@/lib/contact";
 import { applications, projects, resources, faqs } from "@/lib/content";
 import "./interior.css";
+import "@/components/text-accent.css";
 
 const mainTitles: Record<string, string> = {
   tecnologia: "La tecnología",
   aplicaciones: "Aplicaciones",
-  casos: "Casos de éxito",
   recursos: "Recursos",
   red: "Red VBT",
   empresa: "Empresa",
   viviendas: "Viviendas con VBT",
-  financiacion: "Financiación",
+  "viviendas/financiacion": "Financiación para viviendas",
   contacto: "Conversemos",
   "preguntas-frecuentes": "Preguntas frecuentes",
   privacidad: "Privacidad",
@@ -29,7 +30,7 @@ const mainTitles: Record<string, string> = {
 const paths = [
   ...Object.keys(mainTitles),
   ...applications.map((x) => `aplicaciones/${x.slug}`),
-  ...projects.map((x) => `casos/${x.slug}`),
+  ...projects.map((x) => `aplicaciones/casos/${x.slug}`),
   ...resources.map((x) => `recursos/${x.slug}`),
   ...houseCatalog.map((x) => `viviendas/${x.slug}`),
 ];
@@ -38,6 +39,8 @@ export function generateStaticParams() {
   return paths.map((path) => ({ slug: path.split("/") }));
 }
 function titleFor(path: string) {
+  if (path.startsWith("aplicaciones/casos/"))
+    return projects.find((item) => item.slug === path.split("/")[2])?.title;
   const [section, slug] = path.split("/");
   return (
     mainTitles[path] ??
@@ -91,11 +94,13 @@ function Hero({
   title,
   text,
   children,
+  accent,
 }: {
   eyebrow: string;
   title: string;
   text?: string;
   children?: ReactNode;
+  accent?: string;
 }) {
   return (
     <header className="inner-hero container">
@@ -109,7 +114,14 @@ function Hero({
         {title.split("<br/>").map((line, i) => (
           <Fragment key={i}>
             {i > 0 && <br />}
-            {line}
+            {accent
+              ? line.split(accent).map((part, index) => (
+                  <Fragment key={index}>
+                    {index > 0 && <span className="text-accent">{accent}</span>}
+                    {part}
+                  </Fragment>
+                ))
+              : line}
           </Fragment>
         ))}
       </h1>
@@ -152,7 +164,7 @@ function Photo({
   return (
     <figure className={`inner-photo ${className}`}>
       <img src={src} alt={alt} loading="lazy" />
-      <figcaption>Imagen ilustrativa generada con IA.</figcaption>
+      <figcaption>Visualización arquitectónica de referencia.</figcaption>
     </figure>
   );
 }
@@ -188,7 +200,7 @@ function CaseLinks({ slugs }: { slugs: string[] }) {
         {items.map((p) => (
           <Link
             className="inner-case-row"
-            href={`/casos/${p.slug}`}
+            href={`/aplicaciones/casos/${p.slug}`}
             key={p.slug}
           >
             <span className="inner-kicker">{p.category}</span>
@@ -212,6 +224,7 @@ function Technology() {
       <Hero
         eyebrow="Tecnología"
         title="Entendé el muro. Imaginá lo que podés construir."
+        accent="construir."
         text="Perfiles de PVC, acero y hormigón. Materiales con funciones diferentes, coordinados en un mismo sistema de encofrado permanente."
       >
         <div className="inner-inline-links">
@@ -306,8 +319,12 @@ function Applications() {
       <Hero
         eyebrow="Aplicaciones"
         title="Una tecnología.<br/>Muchas maneras de habitarla."
+        accent="tecnología."
         text="De una escuela a una nave industrial. Cada programa plantea necesidades diferentes; el proyecto define la solución."
       />
+      <div className="container inner-inline-links">
+        <ArrowLink href="#casos">Ver casos de éxito</ArrowLink>
+      </div>
       <section className="container inner-section inner-application-list">
         {applications.map((a) => (
           <Link
@@ -324,6 +341,7 @@ function Applications() {
           </Link>
         ))}
       </section>
+      <Projects />
       <section className="inner-tinted">
         <div className="container inner-section inner-two-column">
           <div>
@@ -408,15 +426,24 @@ function ApplicationDetail({ slug }: { slug: string }) {
 function Projects() {
   return (
     <>
-      <Hero
-        eyebrow="Casos de éxito"
-        title="La tecnología,<br/>puesta en obra."
-        text="Una selección de antecedentes educativos, institucionales, sanitarios, industriales y residenciales. Conocé las aplicaciones y los equipos detrás de cada proyecto."
-      />
       <section
         className="container inner-section inner-filterable"
+        id="casos"
         aria-label="Catálogo de proyectos"
       >
+        <div className="inner-section-top">
+          <p className="inner-kicker">Casos de éxito</p>
+          <h2>
+            La tecnología,
+            <br />
+            <span className="text-accent">puesta en obra.</span>
+          </h2>
+          <p>
+            Antecedentes educativos, institucionales, sanitarios, industriales y
+            residenciales. Conocé los proyectos y los equipos que los hicieron
+            posibles.
+          </p>
+        </div>
         <fieldset className="inner-filters">
           <legend>Filtrar por aplicación</legend>
           {[
@@ -442,7 +469,7 @@ function Projects() {
               className="inner-project"
               data-sector={p.sector}
             >
-              <Link href={`/casos/${p.slug}`}>
+              <Link href={`/aplicaciones/casos/${p.slug}`}>
                 <ProjectMedia slug={p.slug} compact />
                 <div className="inner-project-head">
                   <span className="inner-index">
@@ -450,7 +477,7 @@ function Projects() {
                   </span>
                   <span className="inner-kicker">{p.category}</span>
                 </div>
-                <h2>{p.title}</h2>
+                <h3>{p.title}</h3>
                 <p className="inner-project-location">{p.location}</p>
                 <p>{p.summary}</p>
                 <span className="inner-project-more">
@@ -461,7 +488,6 @@ function Projects() {
           ))}
         </div>
       </section>
-      <CTA title="Tu próximo proyecto también puede construir experiencia." />
     </>
   );
 }
@@ -471,7 +497,7 @@ function ProjectDetail({ slug }: { slug: string }) {
   return (
     <>
       <Hero
-        eyebrow={`Casos / ${p.category}`}
+        eyebrow={`Aplicaciones / Casos de éxito / ${p.category}`}
         title={p.title}
         text={p.location}
       />
@@ -529,7 +555,7 @@ function ProjectDetail({ slug }: { slug: string }) {
         </div>
       </section>
       <div className="container inner-back">
-        <ArrowLink href="/casos">Explorar otros casos</ArrowLink>
+        <ArrowLink href="/aplicaciones#casos">Explorar otros casos</ArrowLink>
       </div>
     </>
   );
@@ -541,9 +567,27 @@ function Resources() {
       <Hero
         eyebrow="Recursos"
         title="Información para<br/>dar el próximo paso."
-        text="Una biblioteca organizada por lo que necesitás hacer: entender, proyectar, construir y mantener."
-      />
-      <section className="container inner-section">
+        accent="próximo paso."
+        text="Descargá documentación, consultá evidencia técnica y encontrá lecturas para cada etapa del proyecto."
+      >
+        <div className="inner-inline-links">
+          <ArrowLink href="#descargas">Descargar documentos</ArrowLink>
+          <ArrowLink href="#ensayo-fuego">
+            Resultados del ensayo de fuego
+          </ArrowLink>
+          <ArrowLink href="#lecturas">Lecturas rápidas</ArrowLink>
+        </div>
+      </Hero>
+      <ResourceDownloads />
+      <section className="container inner-section" id="lecturas">
+        <div className="inner-section-top">
+          <p className="inner-kicker">Lecturas rápidas</p>
+          <h2>
+            Antes de empezar,
+            <br />
+            <span className="text-accent">entender.</span>
+          </h2>
+        </div>
         <div className="inner-resource-list">
           {resources.map((r, i) => (
             <Link
@@ -569,7 +613,7 @@ function Resources() {
       <section className="inner-tinted">
         <div className="container inner-section inner-two-column">
           <div>
-            <p className="inner-kicker">Documentación técnica</p>
+            <p className="inner-kicker">Más documentación</p>
             <h2>
               El documento correcto,
               <br />
@@ -809,11 +853,15 @@ function Financing() {
   return (
     <>
       <Hero
-        eyebrow="Financiación"
-        title="Tu proyecto.<br/>Tus números."
-        text="Calculá un escenario de financiación: aporte propio, monto a pedir, plazo, tasa y cuota inicial. El banco evalúa y otorga el préstamo; VBT no financia ni aprueba solicitudes."
+        eyebrow="Viviendas / Financiación"
+        title="Tu vivienda.<br/>Tus números."
+        accent="vivienda."
+        text="Explorá un escenario para comprar o construir tu vivienda: aporte propio, monto a pedir, plazo, tasa y cuota inicial. Banco Nación evalúa y otorga el préstamo; VBT acompaña la consulta por el proyecto y la tecnología."
       >
-        <ArrowLink href="#calculadora">Ir a la calculadora</ArrowLink>
+        <div className="inner-inline-links">
+          <ArrowLink href="#calculadora">Ir a la calculadora</ArrowLink>
+          <ArrowLink href="/viviendas#modelos">Explorar viviendas</ArrowLink>
+        </div>
       </Hero>
       <LoanCalculator />
       <section className="container inner-section inner-two-column">
@@ -929,6 +977,7 @@ function Contact() {
       <Hero
         eyebrow="Contacto"
         title="Hablemos de<br/>tu próximo proyecto."
+        accent="proyecto."
         text="Una obra nueva, una consulta técnica o una idea para trabajar juntos. Contanos dónde estás y qué necesitás resolver."
       />
       <section className="container inner-section inner-contact-layout">
@@ -1093,12 +1142,13 @@ export default async function InteriorPage({
   const { slug } = await params;
   const path = slug.join("/");
   if (!paths.includes(path)) notFound();
+  if (path === "viviendas/financiacion") return <Financing />;
+  if (slug.length === 3 && slug[0] === "aplicaciones" && slug[1] === "casos")
+    return <ProjectDetail slug={slug[2]} />;
   if (slug.length === 2) {
     switch (slug[0]) {
       case "aplicaciones":
         return <ApplicationDetail slug={slug[1]} />;
-      case "casos":
-        return <ProjectDetail slug={slug[1]} />;
       case "recursos":
         return <ResourceDetail slug={slug[1]} />;
       case "viviendas":
@@ -1110,8 +1160,6 @@ export default async function InteriorPage({
       return <Technology />;
     case "aplicaciones":
       return <Applications />;
-    case "casos":
-      return <Projects />;
     case "recursos":
       return <Resources />;
     case "red":
@@ -1120,8 +1168,6 @@ export default async function InteriorPage({
       return <Company />;
     case "viviendas":
       return <HousingPage />;
-    case "financiacion":
-      return <Financing />;
     case "contacto":
       return <Contact />;
     case "preguntas-frecuentes":

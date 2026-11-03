@@ -30,9 +30,7 @@ function Visual({
         />
         {media.kind === "illustration" && (
           <span className="project-media-label">
-            {media.src.includes("salud-conceptual")
-              ? "ILUSTRACIÓN IA"
-              : "VISUALIZACIÓN ARQUITECTÓNICA"}
+            VISUALIZACIÓN ARQUITECTÓNICA
           </span>
         )}
       </div>

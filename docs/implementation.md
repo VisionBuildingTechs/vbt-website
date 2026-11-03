@@ -4,15 +4,15 @@
 
 ## Alcance
 
-Inicio y páginas interiores: tecnología, seis aplicaciones y sus fichas, siete antecedentes de obra y sus fichas, recursos y cuatro guías HTML, red, empresa, tipologías residenciales y sus fichas, financiación, contacto, FAQ, privacidad y términos. Página 404 propia y robots de revisión.
+Inicio y páginas interiores: tecnología, seis aplicaciones y sus fichas, siete casos integrados en Aplicaciones y sus fichas, recursos con tres PDF y cuatro guías HTML, red, empresa, catálogo residencial y sus fichas, financiación dentro de Viviendas, contacto, FAQ, privacidad y términos. Las rutas anteriores de casos y financiación redirigen a sus nuevas ubicaciones. Página 404 propia y robots de revisión.
 
 El muro representa VBT150 por capas: base, encastre, acero, reservas, control, hormigón, consolidación y terminación parcial. En escritorio responde al desplazamiento; en móvil o con movimiento reducido usa controles manuales. Es conceptual, sin escala ni parámetros de ejecución.
 
-Imágenes ilustrativas IA identificadas, fotografías del portfolio VBT y galerías por caso; los renders se distinguen de fotos de obra. Axonométricas originales de VBT80/VBT150 incorporadas. Logo transparente del archivo de marca e Inter local con licencia OFL.
+Fotografías del portfolio VBT, visualizaciones y galerías por caso; los renders se distinguen de fotos de obra. Las menciones a IA se retiraron del sitio visible. Axonométricas originales de VBT80/VBT150 incorporadas. Logo transparente del archivo de marca e Inter local con licencia OFL. Acentos puntuales usan el mismo azul del título del inicio.
 
 ## Funciones y límites
 
-Guías HTML, filtros de casos, preguntas desplegables, menú móvil y navegación entre fichas funcionan sin servicios externos. No hay espejo público de la biblioteca privada.
+Guías HTML, filtros de casos, preguntas desplegables, menú móvil y navegación entre fichas funcionan sin servicios externos. Recursos ofrece los tres PDF expresamente seleccionados por el usuario: guía técnica/montaje (14 páginas), piezas (6) y ensayo de fuego (4). Se sirven originales completos, sin modificaciones; fuentes y huellas se conservan en documentación local ignorada. El resumen de FSI 25 y SDI 400 limita la clasificación A/1 a la muestra del reporte Element 24-002-431(B), sin confundir combustión superficial con resistencia estructural en minutos. No hay espejo público de la biblioteca privada.
 
 El formulario valida campos recortados y prepara un borrador en el navegador. El visitante elige Argentina o Panamá, revisa y abre WhatsApp o correo; confirma el envío allí. Un cambio en los campos invalida el borrador anterior. No almacena consultas en una base ni afirma que se hayan enviado automáticamente. Una bandeja persistente requiere seleccionar y configurar su servicio.
 
@@ -22,8 +22,8 @@ El catálogo de viviendas incluye los proyectos de 90, 120 y 150 m² publicados 
 
 ## Verificación
 
-Compilación de producción y TypeScript; recorrido HTTP de enlaces internos con respuesta 200 y un único h1 por página; imágenes, fuentes, robots, 404 y ausencia de JWT en HTML. Revisión de interacciones en navegador y adaptación de escritorio y móvil.
+Compilación de producción y TypeScript; recorrido HTTP de enlaces internos con respuesta 200 y un único h1 por página; imágenes, fuentes, robots, 404 y ausencia de JWT en HTML. Se comprueban también encabezado PDF, tamaño completo de las tres descargas y redirecciones de rutas anteriores. Revisión de interacciones en navegador y adaptación de escritorio y móvil.
 
 ## Lanzamiento posterior
 
-Validar textos y casos definitivos; sustituir imágenes ilustrativas; seleccionar documentos publicables; confirmar canal por territorio; configurar recepción persistente si se desea; completar reglas bancarias antes de activar estimador. Revisar indexación, canónicas, sitemap y redirecciones al conectar dominio. El sitio actual y sus DNS no se reemplazaron.
+Validar textos y casos definitivos; sustituir imágenes ilustrativas cuando corresponda; incorporar nuevos documentos seleccionados; configurar recepción persistente si se desea; mantener la revisión de condiciones bancarias y acordar el alcance de la futura alianza. Revisar indexación, canónicas, sitemap y redirecciones al conectar dominio. El sitio actual y sus DNS no se reemplazaron.

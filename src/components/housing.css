@@ -132,6 +132,12 @@
 .housing-next {
   background: #eeeee7;
 }
+.housing-finance {
+  border-top: 1px solid #cbd3d4;
+}
+.housing-finance .button {
+  margin: 0 0 20px;
+}
 .housing-model-hero {
   padding-bottom: 45px;
 }

@@ -171,7 +171,7 @@ export default function Home() {
                 en contexto.
               </h2>
             </div>
-            <Link href="/casos" className="text-link">
+            <Link href="/aplicaciones#casos" className="text-link">
               Explorar los casos <Arrow diagonal />
             </Link>
           </div>
@@ -190,7 +190,11 @@ export default function Home() {
             </figure>
             <div className="case-links">
               {cases.map(([category, title, location, slug]) => (
-                <Link key={slug} href={`/casos/${slug}`} className="case-link">
+                <Link
+                  key={slug}
+                  href={`/aplicaciones/casos/${slug}`}
+                  className="case-link"
+                >
                   <span className="eyebrow">{category}</span>
                   <h3>{title}</h3>
                   <div>
@@ -285,7 +289,10 @@ export default function Home() {
           <Link href="/viviendas" className="text-link">
             Explorar viviendas <Arrow diagonal />
           </Link>
-          <Link href="/financiacion#calculadora" className="subtle-link">
+          <Link
+            href="/viviendas/financiacion#calculadora"
+            className="subtle-link"
+          >
             Calcular financiación →
           </Link>
         </div>

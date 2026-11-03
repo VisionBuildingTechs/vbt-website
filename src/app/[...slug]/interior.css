@@ -419,7 +419,7 @@
 .inner-project-head .inner-kicker {
   margin: 0;
 }
-.inner-project h2 {
+.inner-project h3 {
   font-size: clamp(27px, 3.3vw, 43px);
   max-width: 730px;
   margin: 0 0 10px;
@@ -1005,7 +1005,7 @@
   .inner-project:first-child h2 {
     font-size: 35px;
   }
-  .inner-project h2 {
+  .inner-project h3 {
     font-size: 30px;
   }
   .inner-project-head {
