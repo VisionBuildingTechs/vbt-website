@@ -3,6 +3,24 @@ import assert from "node:assert/strict";
 import { downloads } from "../src/lib/downloads.ts";
 
 const base = process.env.TEST_BASE_URL || "http://127.0.0.1:3000";
+test("El video del inicio permite carga parcial y la portada llega sin descargar el video", async () => {
+  const html = await (await fetch(new URL("/", base))).text();
+  assert.match(html, /hero-video-poster/);
+  assert.doesNotMatch(html, /<video(?:\s|>)/);
+  const response = await fetch(new URL("/videos/vbt-inicio-15s.mp4", base), {
+    headers: { Range: "bytes=0-4095" },
+  });
+  assert.equal(response.status, 206);
+  assert.match(response.headers.get("content-type"), /video\/mp4/);
+  assert.match(response.headers.get("content-range"), /^bytes 0-4095\//);
+  const bytes = Buffer.from(await response.arrayBuffer());
+  assert.equal(bytes.length, 4096);
+  assert.equal(bytes.toString("ascii", 4, 8), "ftyp");
+  assert.ok(
+    bytes.indexOf("moov") >= 0,
+    "El índice debe estar al inicio para reproducción progresiva",
+  );
+});
 test("Las descargas entregan los PDF completos y las rutas anteriores conservan su destino", async () => {
   for (const document of downloads) {
     const response = await fetch(new URL(document.href, base));
@@ -65,6 +83,7 @@ test("Las páginas enlazadas responden y tienen un único título principal", as
 test("Recursos locales disponibles y página desconocida con 404", async () => {
   for (const path of [
     "/images/hero-institucional.webp",
+    "/images/hero-video-poster.webp",
     "/images/obra-detalle.webp",
     "/images/vivienda.webp",
     "/brand/logo-vbt.png",

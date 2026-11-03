@@ -27,3 +27,5 @@ Proyecto Vercel: `vbt-website`. Configuración local y secretos excluidos de Git
 La calculadora incluye capital, anticipo, plazo, tasa editable, gastos y amortización. Las referencias BNA tienen fecha de revisión; no constituyen ofertas o aprobación. `/api/finance` consulta UVA del día en BCRA. INDEC queda pendiente y usaría `INDEC_API_TOKEN` sólo en servidor; `.env.example` no incluye credenciales.
 
 Detalles: [implementación](docs/implementation.md).
+
+El video del inicio está en `public/videos/vbt-inicio-15s.mp4`, con portada `public/images/hero-video-poster.webp`. El reproductor reserva el espacio y evita descargar el video inicialmente con movimiento reducido o ahorro de datos.

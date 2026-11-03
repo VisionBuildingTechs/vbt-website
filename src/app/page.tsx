@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Arrow } from "@/components/icons";
 import WallStory from "@/components/wall-story";
+import HeroVideo from "@/components/hero-video";
 
 const uses = [
   [
@@ -79,13 +80,7 @@ export default function Home() {
           </div>
         </div>
         <figure className="hero-image">
-          <Image
-            src="/images/hero-institucional.webp"
-            fill
-            priority
-            sizes="(max-width: 800px) 100vw, 94vw"
-            alt="Ilustración arquitectónica de un edificio educativo contemporáneo de una planta"
-          />
+          <HeroVideo />
           <div className="hero-image-tag">
             <span>
               UNA TECNOLOGÍA.

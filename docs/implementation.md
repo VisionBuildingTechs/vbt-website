@@ -10,6 +10,8 @@ El muro representa VBT150 por capas: base, encastre, acero, reservas, control, h
 
 Fotografías del portfolio VBT, visualizaciones y galerías por caso; los renders se distinguen de fotos de obra. Las menciones a IA se retiraron del sitio visible. Axonométricas originales de VBT80/VBT150 incorporadas. Logo transparente del archivo de marca e Inter local con licencia OFL. Acentos puntuales usan el mismo azul del título del inicio.
 
+El inicio incorpora un montaje de 15 segundos con Godoy Cruz, detalle de paneles, industria, Escuela Domínguez y siete viviendas. MP4 H.264, 1280×720, 25 fps, 375 cuadros, sin audio, Rec.709 y cabecera al inicio para reproducción progresiva; pesa 2.428.436 bytes. La fuente HLG del video de Vision Latam se convirtió a SDR. Portada WebP prioritaria y fuente de video diferida hasta entrar en pantalla. Movimiento reducido y ahorro de datos requieren reproducción voluntaria; pausa manual, fuera de pantalla y con pestaña oculta. Receta, originales referenciados y control visual se conservan localmente en investigación/documentación ignorada.
+
 ## Funciones y límites
 
 Guías HTML, filtros de casos, preguntas desplegables, menú móvil y navegación entre fichas funcionan sin servicios externos. Recursos ofrece los tres PDF expresamente seleccionados por el usuario: guía técnica/montaje (14 páginas), piezas (6) y ensayo de fuego (4). Se sirven originales completos, sin modificaciones; fuentes y huellas se conservan en documentación local ignorada. El resumen de FSI 25 y SDI 400 limita la clasificación A/1 a la muestra del reporte Element 24-002-431(B), sin confundir combustión superficial con resistencia estructural en minutos. No hay espejo público de la biblioteca privada.
