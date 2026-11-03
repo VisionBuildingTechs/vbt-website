@@ -4,16 +4,11 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import "./hero-video.css";
 
-type DataConnection = EventTarget & { saveData?: boolean };
-
 export default function HeroVideo() {
   const container = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(false);
-  const [preferencesKnown, setPreferencesKnown] = useState(false);
-  const [preferStatic, setPreferStatic] = useState(true);
-  const [optedIn, setOptedIn] = useState(false);
   const [manuallyPaused, setManuallyPaused] = useState(false);
   const [loadVideo, setLoadVideo] = useState(false);
   const [hasFrame, setHasFrame] = useState(false);
@@ -21,19 +16,8 @@ export default function HeroVideo() {
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
-    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const connection = (
-      navigator as Navigator & { connection?: DataConnection }
-    ).connection;
-    const updatePreferences = () => {
-      setPreferStatic(motion.matches || connection?.saveData === true);
-      setPreferencesKnown(true);
-    };
     const updateVisibility = () => setPageVisible(!document.hidden);
-    updatePreferences();
     updateVisibility();
-    motion.addEventListener("change", updatePreferences);
-    connection?.addEventListener("change", updatePreferences);
     document.addEventListener("visibilitychange", updateVisibility);
 
     const target = container.current;
@@ -45,15 +29,12 @@ export default function HeroVideo() {
 
     return () => {
       observer.disconnect();
-      motion.removeEventListener("change", updatePreferences);
-      connection?.removeEventListener("change", updatePreferences);
       document.removeEventListener("visibilitychange", updateVisibility);
     };
   }, []);
 
-  const playbackAllowed = optedIn || (preferencesKnown && !preferStatic);
   const shouldPlay =
-    playbackAllowed && visible && pageVisible && !manuallyPaused && !failed;
+    visible && pageVisible && !manuallyPaused && !failed;
 
   useEffect(() => {
     // No video URL is emitted during SSR or requested before these conditions.
@@ -84,7 +65,6 @@ export default function HeroVideo() {
       video.current?.pause();
       return;
     }
-    setOptedIn(true);
     setManuallyPaused(false);
     setFailed(false);
     setLoadVideo(true);
@@ -96,7 +76,7 @@ export default function HeroVideo() {
     <div
       className="hero-video"
       ref={container}
-      data-has-frame={hasFrame && playbackAllowed && !failed}
+      data-has-frame={hasFrame && !failed}
     >
       <Image
         className="hero-video-poster"
@@ -111,10 +91,11 @@ export default function HeroVideo() {
           ref={video}
           className="hero-video-player"
           src="/videos/vbt-inicio-15s.mp4"
+          autoPlay
           muted
           playsInline
           loop
-          preload="none"
+          preload="auto"
           disablePictureInPicture
           aria-hidden="true"
           tabIndex={-1}

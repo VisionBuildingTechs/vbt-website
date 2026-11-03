@@ -28,4 +28,4 @@ La calculadora incluye capital, anticipo, plazo, tasa editable, gastos y amortiz
 
 Detalles: [implementación](docs/implementation.md).
 
-El video del inicio está en `public/videos/vbt-inicio-15s.mp4`, con portada `public/images/hero-video-poster.webp`. El reproductor reserva el espacio y evita descargar el video inicialmente con movimiento reducido o ahorro de datos.
+El video del inicio está en `public/videos/vbt-inicio-15s.mp4`, con portada `public/images/hero-video-poster.webp`. El reproductor reserva el espacio y arranca automáticamente sin sonido cuando entra en pantalla. Incluye botón de pausa y se detiene fuera de pantalla o con la pestaña oculta; si el navegador rechaza la reproducción automática, conserva la portada y permite iniciarlo con el botón.
