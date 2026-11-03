@@ -1,0 +1,29 @@
+# Dependencias y salidas locales
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Credenciales y configuración local
+.env
+.env.*
+!.env.example
+.vercel/
+*.pem
+*.key
+
+# Registros y sistema operativo
+*.log
+.DS_Store
+Thumbs.db
+
+.vercel
+.env*
+!.env.example
+
+# Investigación y artefactos de trabajo: se conservan localmente
+/research/
+/docs/*
+!/docs/implementation.md

@@ -1,0 +1,537 @@
+.wall-story {
+  --wall-ink: #1e3a5f;
+  --wall-paper: #f0efe9;
+  --wall-line: #c9cfcc;
+  --wall-pvc: #c8d8d6;
+  --wall-pvc-dark: #9db6b6;
+  color: var(--wall-ink);
+  background: var(--wall-paper);
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 6vw, 96px) 40px;
+  overflow: clip;
+}
+.wall-story-heading {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 32px;
+  align-items: start;
+  max-width: 1280px;
+  margin: auto auto 28px;
+}
+.wall-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 11px;
+  font-weight: 650;
+  margin: 9px 0;
+}
+.wall-story-heading h2 {
+  font-size: clamp(48px, 6.5vw, 90px);
+  line-height: 0.97;
+  letter-spacing: -0.06em;
+  font-weight: 900;
+  margin: 0;
+}
+.wall-story-heading > p:last-child {
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 260px;
+  margin: 9px 0 0;
+  color: #536269;
+}
+.wall-story-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  column-gap: clamp(44px, 6vw, 110px);
+  max-width: 1280px;
+  margin: auto;
+  align-items: stretch;
+}
+.wall-visual-column {
+  position: relative;
+  min-width: 0;
+}
+.wall-visual-sticky {
+  position: sticky;
+  top: 110px;
+  padding: 35px 0 22px;
+}
+.wall-visual-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: baseline;
+  border-top: 1px solid var(--wall-line);
+  padding-top: 17px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.wall-visual-topline > span:last-child {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  opacity: 0.65;
+}
+.wall-drawing {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 56vh;
+  overflow: visible;
+}
+.wall-ground path:first-child {
+  fill: #dfdfd7;
+  stroke: #b6bcb6;
+  stroke-width: 0.9;
+}
+.wall-ground path:nth-child(2) {
+  fill: #bfc4bf;
+  stroke: #b6bcb6;
+  stroke-width: 0.8;
+}
+.wall-ground path:nth-child(3) {
+  fill: #ccd0c9;
+  stroke: #b6bcb6;
+  stroke-width: 0.8;
+}
+.wall-ground .wall-ground-line {
+  fill: none;
+  stroke: #c7cbc3;
+  stroke-width: 0.6;
+}
+.wall-waits {
+  fill: none;
+  stroke: #9b926e;
+  stroke-width: 3;
+  transition: opacity 0.5s;
+}
+.wall-panels,
+.wall-webs,
+.wall-steel,
+.wall-installation,
+.wall-fronts,
+.wall-supports,
+.wall-finish {
+  opacity: 0;
+  transition:
+    opacity 0.55s ease,
+    transform 0.8s cubic-bezier(0.2, 0.65, 0.2, 1);
+  transform-origin: center;
+}
+.wall-layer-visible {
+  opacity: 1;
+}
+.wall-panel-module {
+  transform: translate(80px, -26px);
+  transition: transform 0.85s cubic-bezier(0.2, 0.65, 0.2, 1);
+}
+.wall-panels.wall-layer-visible .wall-panel-module {
+  transform: translate(0, 0);
+}
+.wall-rear-face {
+  fill: #b5c9c8;
+  stroke: #738f91;
+  stroke-width: 1;
+}
+.wall-panel-rim {
+  fill: #e0e9e5;
+  stroke: #7e9c9b;
+  stroke-width: 1.1;
+}
+.wall-panel-cavity {
+  fill: #93aeae;
+  stroke: #759392;
+  stroke-width: 0.7;
+}
+.wall-webs path {
+  fill: #adc5c3;
+  stroke: #739392;
+  stroke-width: 1;
+  fill-opacity: 0.9;
+}
+.wall-concrete {
+  transition: opacity 0.5s;
+  fill: #a9aaa1;
+  stroke: #8c9189;
+  stroke-width: 0.65;
+}
+.wall-concrete .wall-concrete-top {
+  fill: #bec0b5;
+}
+.wall-concrete circle {
+  fill: #8d938b;
+  stroke: none;
+}
+.wall-steel {
+  transform: translateY(-45px);
+  fill: none;
+  stroke: #887b58;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.wall-steel.wall-layer-visible {
+  transform: translateY(0);
+}
+.wall-steel-horizontal {
+  stroke-width: 3.7;
+}
+.wall-steel-tie {
+  stroke: #635e4c;
+  stroke-width: 1.1;
+}
+.wall-installation {
+  fill: none;
+  stroke: #5a6f7b;
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+.wall-installation .wall-installation-end {
+  fill: #6c8188;
+  stroke: #dbe3df;
+  stroke-width: 1;
+}
+.wall-front-cutaway {
+  fill: #e6ece5;
+  fill-opacity: 0.1;
+  stroke: #9eb8b3;
+  stroke-width: 1;
+}
+.wall-front-solid {
+  fill: #ebece2;
+  fill-opacity: 0.82;
+  stroke: #9eb0a8;
+  stroke-width: 1;
+}
+.wall-front-edge {
+  fill: none;
+  stroke: #b3c6bd;
+  stroke-width: 1.3;
+}
+.wall-supports {
+  fill: none;
+  stroke: #64777c;
+  stroke-width: 3;
+}
+.wall-supports circle {
+  fill: #64777c;
+  stroke: none;
+}
+.wall-finish {
+  transform: translate(14px, 8px);
+}
+.wall-finish.wall-layer-visible {
+  transform: translate(0, 0);
+}
+.wall-finish > path:first-child {
+  fill: #e8dfca;
+  stroke: #a99e83;
+  stroke-width: 1;
+}
+.wall-finish .wall-finish-edge {
+  stroke: #8a806b;
+  stroke-width: 1.5;
+  fill: none;
+}
+.wall-finish .wall-finish-line {
+  stroke: #c6bda7;
+  stroke-width: 0.65;
+  fill: none;
+}
+.wall-drawing-label path {
+  stroke: #879693;
+  stroke-width: 0.7;
+}
+.wall-drawing-label text {
+  font-family: inherit;
+  font-size: 10px;
+  fill: #61736e;
+}
+.wall-scene-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #596c6d;
+  border-bottom: 1px solid var(--wall-line);
+  padding-bottom: 16px;
+}
+.wall-scene-caption-detail {
+  font-size: 10px;
+  color: #6d7b77;
+  text-align: right;
+}
+.wall-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 240px;
+  margin: 20px auto 0;
+  gap: 20px;
+}
+.wall-controls button {
+  font-family: inherit;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 39px;
+  height: 39px;
+  border: 1px solid #bdc5bf;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--wall-ink);
+  font-size: 20px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.wall-controls button:hover:not(:disabled) {
+  background: #e1e5de;
+  border-color: var(--wall-ink);
+}
+.wall-controls button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.wall-controls button:focus-visible,
+.wall-text-alternative summary:focus-visible,
+.wall-story-bottom a:focus-visible {
+  outline: 3px solid #2b6cb0;
+  outline-offset: 5px;
+}
+.wall-controls p {
+  font-size: 12px;
+  text-align: center;
+  margin: 0;
+  min-width: 98px;
+}
+.wall-scroll-hint {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #78817a;
+  margin: 20px 0 0;
+}
+.wall-scroll-hint span {
+  margin-left: 10px;
+}
+.wall-story-steps {
+  padding: 13vh 0 8vh;
+}
+.wall-story-step {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 64vh;
+  max-width: 410px;
+  padding: 70px 0;
+  opacity: 0.3;
+  transition: opacity 0.4s;
+}
+.wall-step-active {
+  opacity: 1;
+}
+.wall-step-number {
+  font-size: 12px;
+  color: #8c805f;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 22px;
+  font-variant-numeric: tabular-nums;
+}
+.wall-story-step h3 {
+  font-size: clamp(28px, 3.2vw, 43px);
+  font-weight: 850;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin: 0 0 24px;
+  max-width: 380px;
+}
+.wall-story-step p {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #526568;
+  margin: 0;
+  max-width: 355px;
+}
+.wall-story-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 45px;
+  max-width: 1280px;
+  margin: auto;
+  padding: 28px 0;
+  border-top: 1px solid var(--wall-line);
+  align-items: start;
+}
+.wall-story-bottom p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #667573;
+  max-width: 560px;
+  margin: 0;
+}
+.wall-story-bottom a {
+  color: var(--wall-ink);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 4px 0;
+  border-bottom: 1px solid #8b9a92;
+}
+.wall-story-bottom a span {
+  margin-left: 25px;
+}
+.wall-text-alternative {
+  max-width: 1280px;
+  margin: 0 auto;
+  color: #526568;
+  font-size: 12px;
+  line-height: 1.75;
+}
+.wall-text-alternative summary {
+  cursor: pointer;
+  width: fit-content;
+  padding: 8px 0;
+}
+.wall-text-alternative ol {
+  padding-left: 20px;
+  max-width: 850px;
+}
+.wall-text-alternative li {
+  margin: 9px 0;
+}
+.wall-manual .wall-story-steps {
+  padding: 50px 0;
+}
+.wall-manual .wall-story-step {
+  min-height: 460px;
+  padding: 30px 0;
+}
+.wall-manual .wall-story-step:not(.wall-step-active) {
+  display: none;
+}
+.wall-manual .wall-visual-sticky {
+  position: relative;
+  top: auto;
+}
+@media (min-width: 1600px) {
+  .wall-story-step {
+    min-height: 58vh;
+  }
+}
+@media (max-width: 1000px) {
+  .wall-story-heading {
+    grid-template-columns: 0.65fr 1.15fr 1fr;
+    gap: 24px;
+  }
+  .wall-story-layout {
+    column-gap: 40px;
+    grid-template-columns: 1.25fr 1fr;
+  }
+  .wall-scene-caption-detail {
+    display: none;
+  }
+  .wall-story-step h3 {
+    font-size: 32px;
+  }
+}
+@media (max-width: 760px) {
+  .wall-story {
+    padding: 64px 22px 30px;
+  }
+  .wall-story-heading {
+    grid-template-columns: 1fr;
+    margin-bottom: 28px;
+    gap: 16px;
+  }
+  .wall-story-heading .wall-eyebrow {
+    margin: 0;
+  }
+  .wall-story-heading h2 {
+    font-size: 60px;
+    letter-spacing: -0.055em;
+  }
+  .wall-story-heading h2 br {
+    display: none;
+  }
+  .wall-story-heading > p:last-child {
+    max-width: 320px;
+    font-size: 15px;
+    margin: 0;
+  }
+  .wall-story-layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .wall-visual-sticky {
+    position: relative;
+    top: auto;
+    padding: 16px 0 12px;
+  }
+  .wall-drawing {
+    max-height: 340px;
+  }
+  .wall-story-steps,
+  .wall-manual .wall-story-steps {
+    padding: 12px 0 24px;
+  }
+  .wall-story-step,
+  .wall-manual .wall-story-step {
+    min-height: 170px;
+    padding: 20px 0;
+    max-width: 100%;
+  }
+  .wall-story-step:not(.wall-step-active) {
+    display: none;
+  }
+  .wall-step-number {
+    margin-bottom: 12px;
+  }
+  .wall-story-step h3 {
+    font-size: 30px;
+    max-width: 360px;
+    margin-bottom: 16px;
+  }
+  .wall-story-step p {
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 460px;
+  }
+  .wall-story-bottom {
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 24px;
+  }
+  .wall-controls {
+    margin-top: 17px;
+  }
+  .wall-scene-caption {
+    font-size: 9px;
+  }
+  .wall-scroll-hint {
+    display: none;
+  }
+  .wall-visual-topline {
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wall-story * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+  .wall-story-steps {
+    padding: 25px 0;
+  }
+  .wall-story-step:not(.wall-step-active) {
+    display: none;
+  }
+  .wall-story-step {
+    min-height: 330px;
+  }
+  .wall-visual-sticky {
+    position: relative;
+    top: auto;
+  }
+}
