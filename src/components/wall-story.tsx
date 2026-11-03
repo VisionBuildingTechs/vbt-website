@@ -239,7 +239,8 @@ export default function WallStory() {
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [compact, setCompact] = useState(false);
-  const manual = reducedMotion || compact;
+  const [scrollRequested, setScrollRequested] = useState(false);
+  const manual = compact || (reducedMotion && !scrollRequested);
   const titleId = useId();
   const storyId = useId();
 
@@ -298,7 +299,7 @@ export default function WallStory() {
     setProgress(target / (steps.length - 1));
     if (!manual)
       stepRefs.current[target]?.scrollIntoView({
-        behavior: "smooth",
+        behavior: reducedMotion ? "instant" : "smooth",
         block: "center",
       });
   };
@@ -334,6 +335,18 @@ export default function WallStory() {
                 Vista interior explicativa
               </span>
             </div>
+            {!compact && reducedMotion && (
+              <button
+                type="button"
+                className="wall-mode-switch"
+                onClick={() => setScrollRequested(!scrollRequested)}
+                aria-pressed={scrollRequested}
+              >
+                {scrollRequested
+                  ? "Volver al control por etapas"
+                  : "Activar recorrido con scroll"}
+              </button>
+            )}
             <div
               className="wall-controls"
               aria-label="Controlar las etapas del muro"
