@@ -314,51 +314,6 @@ export const resources: {
   },
 ];
 
-export const houseModels = [
-  {
-    slug: "compacta",
-    title: "Compacta",
-    label: "Tipología conceptual · un dormitorio",
-    summary:
-      "Una vivienda de escala contenida, organizada alrededor de un espacio social integrado.",
-    description:
-      "Una base de conversación para quienes buscan una vivienda compacta. Distribución, superficies y equipamiento se definen con el equipo de proyecto y la empresa que presente la oferta.",
-    features: [
-      "Espacio social integrado",
-      "Un dormitorio como punto de partida",
-      "Adaptación al lote y a los servicios",
-    ],
-  },
-  {
-    slug: "patio",
-    title: "Patio",
-    label: "Tipología conceptual · dos dormitorios",
-    summary:
-      "Una organización doméstica que propone una relación directa entre estar, expansión y exterior.",
-    description:
-      "Una tipología para explorar la relación entre ambientes interiores y patio. El proyecto final se adapta a orientación, terreno, normativa y alcance contratado.",
-    features: [
-      "Dos dormitorios como punto de partida",
-      "Estar vinculado al exterior",
-      "Posibilidad de estudiar crecimiento",
-    ],
-  },
-  {
-    slug: "familiar",
-    title: "Familiar",
-    label: "Tipología conceptual · tres dormitorios",
-    summary:
-      "Un punto de partida para hogares que necesitan más ambientes y posibilidades de adaptación.",
-    description:
-      "Una propuesta conceptual para conversar sobre una vivienda de mayor programa. No expresa un producto cerrado: el aliado define planos, terminaciones, superficie, precio y plazos en su propuesta.",
-    features: [
-      "Tres dormitorios como punto de partida",
-      "Áreas sociales y privadas diferenciadas",
-      "Configuración según proyecto y ubicación",
-    ],
-  },
-];
-
 export const faqs = [
   {
     question: "¿Qué es el encofrado permanente?",

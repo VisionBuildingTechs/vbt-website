@@ -18,7 +18,7 @@ El formulario valida campos recortados y prepara un borrador en el navegador. El
 
 Financiación incorpora sistema francés en pesos nominales y UVA: valor del proyecto, anticipo, capital, TNA editable, plazo, gastos, ingreso opcional y amortización. Las referencias BNA son una revisión fechada y no se presentan como actualización automática de tasas. `/api/finance` consulta UVA oficial BCRA para la fecha argentina, con validación y alternativa manual explícita. No predice UVA futura ni calcula CFT con costos incompletos; construcción sólo se representa a desembolso completo. INDEC y cron quedan pendientes. No hay aprobación de solicitudes ni claves en el código.
 
-No hay CMS administrativo, área privada, portal de aliados ni catálogo de propiedades efectivamente disponibles. Las tipologías son conceptuales. La red se atiende por contacto central, sin inventar empresas, precios o cobertura.
+El catálogo de viviendas incluye los proyectos de 90, 120 y 150 m² publicados por Vision Latam, con planos, renders y filtros por superficie y plantas. Cada ficha inicia la consulta con el modelo seleccionado. No representa unidades en stock ni una oferta cerrada. No hay CMS administrativo, área privada ni portal de aliados. La red se atiende por contacto central, sin inventar empresas, precios o cobertura. Empresa deja el menú principal; su URL se conserva.
 
 ## Verificación
 

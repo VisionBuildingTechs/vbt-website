@@ -2,6 +2,13 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return ["compacta", "patio", "familiar"].map((slug) => ({
+      source: `/viviendas/${slug}`,
+      destination: "/viviendas",
+      permanent: true,
+    }));
+  },
   async headers() {
     return [
       {

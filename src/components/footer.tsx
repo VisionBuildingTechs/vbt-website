@@ -92,8 +92,8 @@ export default function Footer() {
           </div>
         </div>
         <p className="preview-note">
-          Las imágenes identificadas como ilustrativas fueron generadas con IA y
-          no documentan obras ejecutadas.
+          Las visualizaciones arquitectónicas son ilustrativas y no documentan
+          obras ejecutadas.
         </p>
       </div>
     </footer>

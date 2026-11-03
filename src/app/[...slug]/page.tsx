@@ -5,15 +5,11 @@ import { Fragment, type ReactNode } from "react";
 import WallStory from "@/components/wall-story";
 import ContactForm from "@/components/contact-form";
 import LoanCalculator from "@/components/loan-calculator";
+import { HousingPage, HousingDetailPage } from "@/components/housing-pages";
+import { houseCatalog } from "@/lib/house-catalog";
 import ProjectMedia, { TechnologyPanels } from "@/components/project-media";
 import { contactRegions, contactEmails } from "@/lib/contact";
-import {
-  applications,
-  projects,
-  resources,
-  houseModels,
-  faqs,
-} from "@/lib/content";
+import { applications, projects, resources, faqs } from "@/lib/content";
 import "./interior.css";
 
 const mainTitles: Record<string, string> = {
@@ -35,7 +31,7 @@ const paths = [
   ...applications.map((x) => `aplicaciones/${x.slug}`),
   ...projects.map((x) => `casos/${x.slug}`),
   ...resources.map((x) => `recursos/${x.slug}`),
-  ...houseModels.map((x) => `viviendas/${x.slug}`),
+  ...houseCatalog.map((x) => `viviendas/${x.slug}`),
 ];
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -52,7 +48,7 @@ function titleFor(path: string) {
         : section === "recursos"
           ? resources.find((x) => x.slug === slug)?.title
           : section === "viviendas"
-            ? houseModels.find((x) => x.slug === slug)?.title
+            ? houseCatalog.find((x) => x.slug === slug)?.title
             : undefined)
   );
 }
@@ -809,205 +805,6 @@ function Company() {
   );
 }
 
-function Housing() {
-  return (
-    <>
-      <Hero
-        eyebrow="Viviendas con VBT"
-        title="Tu vivienda.<br/>Un equipo para hacerla posible."
-        text="Explorá ideas y conectá con empresas que construyen con VBT. La tecnología, el proyecto y la ejecución tienen responsables definidos."
-      />
-      <Photo
-        src="/images/vivienda.webp"
-        alt="Ilustración conceptual de una vivienda contemporánea de una planta"
-        className="container inner-wide-photo"
-      />
-      <section className="container inner-section">
-        <div className="inner-section-top">
-          <p className="inner-kicker">Puntos de partida</p>
-          <h2>
-            Distintas maneras
-            <br />
-            de pensar una casa.
-          </h2>
-          <p>
-            Estas tipologías son conceptuales. No representan unidades
-            disponibles ni una oferta cerrada de construcción.
-          </p>
-        </div>
-        <div className="inner-housing-list">
-          {houseModels.map((m, i) => (
-            <Link key={m.slug} href={`/viviendas/${m.slug}`}>
-              <span className="inner-index">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <p className="inner-kicker">{m.label}</p>
-                <h3>{m.title}</h3>
-                <p>{m.summary}</p>
-              </div>
-              <span className="inner-case-arrow" aria-hidden="true">
-                ↗
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-      <section className="inner-tinted">
-        <div className="container inner-section inner-two-column">
-          <h2>
-            Antes de comparar,
-            <br />
-            definí el alcance.
-          </h2>
-          <div className="inner-copy">
-            <p>
-              Una vivienda completa es más que sus muros. Terreno, fundaciones,
-              proyecto, permisos, transporte, instalaciones, conexiones y
-              terminaciones deben quedar incluidos o excluidos expresamente en
-              la propuesta del constructor.
-            </p>
-            <p>
-              VBT te ayuda a orientar la consulta. El aliado que presenta la
-              oferta define precio, plazos, contrato y responsabilidades de
-              ejecución.
-            </p>
-            <ArrowLink href="/red">Cómo funciona la red</ArrowLink>
-            <ArrowLink href="/financiacion">
-              Conocer opciones de financiación
-            </ArrowLink>
-          </div>
-        </div>
-      </section>
-      <CTA
-        title="Empecemos por dónde y cómo querés vivir."
-        text="Contanos si tenés terreno y si ya trabajás con un profesional o constructor. Respetamos esa relación y definimos el próximo paso."
-      />
-    </>
-  );
-}
-function FloorPlan({ rooms }: { rooms: number }) {
-  return (
-    <svg
-      className="inner-floorplan"
-      viewBox="0 0 500 340"
-      role="img"
-      aria-label={`Organización conceptual de vivienda con ${rooms} dormitorio${rooms > 1 ? "s" : ""}, sin escala`}
-    >
-      <rect
-        x="22"
-        y="22"
-        width="456"
-        height="272"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="5"
-      />
-      <path
-        d="M290 24 V292 M292 170 H476 M290 100 H476"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3"
-      />
-      <rect
-        x="25"
-        y="208"
-        width="124"
-        height="82"
-        fill="currentColor"
-        opacity=".07"
-      />
-      <text x="80" y="133">
-        ESTAR / COMEDOR
-      </text>
-      <text x="61" y="250">
-        COCINA
-      </text>
-      <text x="330" y="67">
-        DORMITORIO
-      </text>
-      <text x="352" y="141">
-        BAÑO
-      </text>
-      <text x="322" y="242">
-        {rooms === 1 ? "EXPANSIÓN" : "DORMITORIOS"}
-      </text>
-      <path
-        d="M60 294 H150 M330 22 H420 M478 213 V263"
-        fill="none"
-        stroke="var(--paper, #f7f5f0)"
-        strokeWidth="7"
-      />
-      <text x="24" y="328" className="inner-floorplan-caption">
-        ESQUEMA CONCEPTUAL · SIN ESCALA · NO ES UN PLANO DE OBRA
-      </text>
-    </svg>
-  );
-}
-function HousingDetail({ slug }: { slug: string }) {
-  const m = houseModels.find((x) => x.slug === slug);
-  if (!m) return notFound();
-  return (
-    <>
-      <Hero eyebrow="Viviendas / Tipologías" title={m.title} text={m.summary} />
-      <section className="container inner-section inner-two-column">
-        <div className="inner-plan">
-          <p className="inner-kicker">Organización de referencia</p>
-          <FloorPlan rooms={houseModels.indexOf(m) + 1} />
-          <p className="inner-note">
-            Distribución y superficies a definir con el equipo de proyecto.
-          </p>
-        </div>
-        <div className="inner-copy">
-          <p className="inner-kicker">{m.label}</p>
-          <h2>
-            Una idea para
-            <br />
-            empezar a conversar.
-          </h2>
-          <p>{m.description}</p>
-          <ul className="inner-points">
-            {m.features.map((f) => (
-              <li key={f}>{f}</li>
-            ))}
-          </ul>
-          <ArrowLink href="/contacto">Consultar esta tipología</ArrowLink>
-          <p className="inner-note">
-            Concepto residencial, sin precio ni disponibilidad confirmada. El
-            proveedor y el alcance se identifican en la propuesta comercial.
-          </p>
-        </div>
-      </section>
-      <section className="inner-tinted">
-        <div className="container inner-section inner-two-column">
-          <h2>
-            Lo que debe incluir
-            <br />
-            una propuesta clara.
-          </h2>
-          <div className="inner-copy">
-            <ul className="inner-points">
-              <li>
-                Responsable de la oferta, cobertura y alcance contractual.
-              </li>
-              <li>Proyecto, terreno, fundaciones, permisos y conexiones.</li>
-              <li>Instalaciones, aberturas, equipamiento y terminaciones.</li>
-              <li>
-                Transporte, impuestos, precio, plazos y condiciones de validez.
-              </li>
-              <li>Responsables de garantías y atención posterior.</li>
-            </ul>
-            <ArrowLink href="/financiacion">Explorar financiación</ArrowLink>
-          </div>
-        </div>
-      </section>
-      <div className="container inner-back">
-        <ArrowLink href="/viviendas">Volver a viviendas con VBT</ArrowLink>
-      </div>
-    </>
-  );
-}
-
 function Financing() {
   return (
     <>
@@ -1236,11 +1033,11 @@ function Privacy() {
         </p>
         <h2>Sobre este sitio</h2>
         <p>
-          Las ilustraciones generadas con IA están identificadas y no
-          representan fotografías documentales de las obras. Para preguntas
-          sobre el tratamiento de una consulta enviada, utilizá el canal de
-          contacto y pedí revisión, actualización o supresión de los datos que
-          hayas compartido.
+          El sitio reúne fotografías de obras y visualizaciones arquitectónicas.
+          Las visualizaciones no representan fotografías documentales de las
+          obras. Para preguntas sobre el tratamiento de una consulta enviada,
+          utilizá el canal de contacto y pedí revisión, actualización o
+          supresión de los datos que hayas compartido.
         </p>
         <ArrowLink href="/contacto">Contactar a VBT</ArrowLink>
       </article>
@@ -1278,7 +1075,7 @@ function Terms() {
         </p>
         <h2>Imágenes y referencias</h2>
         <p>
-          Las imágenes ilustrativas generadas con IA están identificadas. Las
+          Las visualizaciones arquitectónicas tienen carácter ilustrativo. Las
           referencias de proyectos no expresan por sí solas una garantía de
           resultados equivalentes para otra obra.
         </p>
@@ -1305,7 +1102,7 @@ export default async function InteriorPage({
       case "recursos":
         return <ResourceDetail slug={slug[1]} />;
       case "viviendas":
-        return <HousingDetail slug={slug[1]} />;
+        return <HousingDetailPage slug={slug[1]} />;
     }
   }
   switch (path) {
@@ -1322,7 +1119,7 @@ export default async function InteriorPage({
     case "empresa":
       return <Company />;
     case "viviendas":
-      return <Housing />;
+      return <HousingPage />;
     case "financiacion":
       return <Financing />;
     case "contacto":

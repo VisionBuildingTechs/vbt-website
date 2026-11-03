@@ -57,7 +57,7 @@ export default function Home() {
       <section className="home-hero container">
         <div className="hero-kicker">
           <span className="eyebrow">VISION BUILDING TECHNOLOGIES</span>
-          <span className="hero-index">SISTEMA VBT / 01</span>
+          <span className="hero-index">TECNOLOGÍA VBT / 01</span>
         </div>
         <div className="hero-heading">
           <h1>
@@ -88,7 +88,7 @@ export default function Home() {
           />
           <div className="hero-image-tag">
             <span>
-              UN SISTEMA.
+              UNA TECNOLOGÍA.
               <br />
               MÚLTIPLES APLICACIONES.
             </span>
@@ -96,7 +96,6 @@ export default function Home() {
               <Arrow diagonal />
             </Link>
           </div>
-          <figcaption>Visualización ilustrativa generada con IA</figcaption>
         </figure>
         <div className="hero-foot">
           <span>DE LA PIEZA AL EDIFICIO</span>
@@ -264,12 +263,12 @@ export default function Home() {
       <section className="housing-section container">
         <figure>
           <Image
-            src="/images/vivienda.webp"
+            src="/images/houses/90-render-exterior.webp"
             fill
             sizes="(max-width:800px) 100vw, 50vw"
-            alt="Visualización conceptual de una vivienda contemporánea de una planta"
+            alt="Render del Proyecto 90 m², vivienda de una planta del catálogo VBT"
           />
-          <figcaption>Vivienda conceptual · imagen ilustrativa IA</figcaption>
+          <figcaption>Proyecto 90 m² · Visualización arquitectónica</figcaption>
         </figure>
         <div className="housing-copy">
           <span className="eyebrow">VIVIENDAS CON VBT</span>
@@ -279,8 +278,9 @@ export default function Home() {
             Tu manera de vivir.
           </h2>
           <p>
-            Explorá tipologías y conocé cómo avanzar con un constructor aliado.
-            Alcance, proyecto y condiciones se definen para cada propuesta.
+            Compará proyectos por superficie y cantidad de plantas. Mirá sus
+            planos y renders, y conocé cómo avanzar con tu equipo o un
+            constructor aliado.
           </p>
           <Link href="/viviendas" className="text-link">
             Explorar viviendas <Arrow diagonal />

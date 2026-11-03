@@ -1,5 +1,6 @@
 "use client";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { houseCatalog } from "@/lib/house-catalog";
 import { Arrow } from "./icons";
 import {
   contactRegions,
@@ -11,9 +12,17 @@ export default function ContactForm() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [region, setRegion] = useState<ContactRegion>("argentina");
+  const [model, setModel] = useState("");
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("modelo");
+    if (houseCatalog.some((item) => item.slug === slug)) setModel(slug!);
+  }, []);
   function prepare(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const d = new FormData(e.currentTarget);
+    const selectedModel = houseCatalog.find(
+      (item) => item.slug === d.get("model"),
+    );
     if (
       String(d.get("name")).trim().length < 2 ||
       String(d.get("location")).trim().length < 2 ||
@@ -27,7 +36,7 @@ export default function ContactForm() {
     }
     setError("");
     setDraft(
-      `Hola, equipo VBT. Soy ${String(d.get("name")).trim()}.\n\nConsulta: ${d.get("topic")}\nUbicación: ${String(d.get("location")).trim()}\nProfesional o empresa con la que trabajo: ${String(d.get("partner") || "Aún no definido").trim()}\n\n${String(d.get("message")).trim()}\n\nMe interesa recibir orientación y coordinar el próximo paso.`,
+      `Hola, equipo VBT. Soy ${String(d.get("name")).trim()}.\n\nConsulta: ${d.get("topic")}${selectedModel ? `\nProyecto de interés: ${selectedModel.title}` : ""}\nUbicación: ${String(d.get("location")).trim()}\nProfesional o empresa con la que trabajo: ${String(d.get("partner") || "Aún no definido").trim()}\n\n${String(d.get("message")).trim()}\n\nMe interesa recibir orientación y coordinar el próximo paso.`,
     );
     setCopied(false);
   }
@@ -55,6 +64,21 @@ export default function ContactForm() {
             <option value="panama">
               Panamá · {contactRegions.panama.phone}
             </option>
+          </select>
+        </label>
+        <label>
+          Proyecto de vivienda de interés <span>(opcional)</span>
+          <select
+            name="model"
+            value={model}
+            onChange={(event) => setModel(event.target.value)}
+          >
+            <option value="">Consulta general / tengo otro proyecto</option>
+            {houseCatalog.map((item) => (
+              <option key={item.slug} value={item.slug}>
+                {item.title}
+              </option>
+            ))}
           </select>
         </label>
         <div className="form-pair">
