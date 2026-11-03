@@ -49,7 +49,7 @@ export default function Footer() {
             <h3>Conectar</h3>
             <Link href="/recursos">Centro de recursos</Link>
             <Link href="/red">Red VBT</Link>
-            <Link href="/viviendas/financiacion#calculadora">
+            <Link href="/viviendas#financiacion">
               Calculadora y financiación
             </Link>
             <Link href="/contacto">Contacto</Link>

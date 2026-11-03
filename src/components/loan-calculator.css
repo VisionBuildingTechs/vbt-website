@@ -11,6 +11,9 @@
   align-items: end;
   margin-bottom: 50px;
 }
+.loan-calculator.loan-calculator-embedded {
+  padding-top: 0;
+}
 .loan-kicker {
   font-size: 10px;
   letter-spacing: 0.13em;

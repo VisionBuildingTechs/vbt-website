@@ -1,0 +1,90 @@
+.housing-finance-section {
+  background: #eeeee7;
+  color: var(--ink);
+}
+.housing-finance-section .housing-finance-intro {
+  padding-top: 75px;
+  padding-bottom: 35px;
+}
+.housing-bank-info {
+  padding-bottom: 80px;
+}
+.housing-bank-info > h3 {
+  font-size: 28px;
+  letter-spacing: -0.035em;
+  margin: 0 0 30px;
+}
+.housing-bank-info > details {
+  border-top: 1px solid #c3cccb;
+}
+.housing-bank-info > details:last-child {
+  border-bottom: 1px solid #c3cccb;
+}
+.housing-bank-info > details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 23px 0;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  list-style: none;
+}
+.housing-bank-info summary::-webkit-details-marker {
+  display: none;
+}
+.housing-bank-info summary > span {
+  font-size: 26px;
+  font-weight: 400;
+  flex-shrink: 0;
+}
+.housing-bank-info details[open] summary > span {
+  transform: rotate(45deg);
+}
+.housing-bank-info details > div {
+  padding: 0 0 25px;
+}
+.housing-bank-info details > div > p,
+.housing-finance-concepts article > p:not(.inner-kicker) {
+  max-width: 850px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #52636e;
+}
+.housing-bank-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 35px;
+}
+.housing-finance-concepts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+}
+.housing-finance-concepts h4 {
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin: 0 0 15px;
+}
+@media (max-width: 760px) {
+  .housing-finance-section .housing-finance-intro {
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+  .housing-bank-info {
+    padding-bottom: 55px;
+  }
+  .housing-bank-info > h3 {
+    font-size: 25px;
+  }
+  .housing-bank-info > details > summary {
+    font-size: 14px;
+    padding: 20px 0;
+  }
+  .housing-finance-concepts {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}

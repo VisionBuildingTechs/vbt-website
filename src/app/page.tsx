@@ -226,7 +226,7 @@ export default function Home() {
               ["03", "Construir y controlar", "montaje-y-obra"],
               ["04", "Usar y mantener", "terminaciones-y-cuidados"],
             ].map(([n, title, slug]) => (
-              <Link href={`/recursos/${slug}`} key={n}>
+              <Link href={`/recursos#lectura-${slug}`} key={n}>
                 <span>{n}</span>
                 <h3>{title}</h3>
                 <Arrow diagonal />
@@ -284,10 +284,7 @@ export default function Home() {
           <Link href="/viviendas" className="text-link">
             Explorar viviendas <Arrow diagonal />
           </Link>
-          <Link
-            href="/viviendas/financiacion#calculadora"
-            className="subtle-link"
-          >
+          <Link href="/viviendas#financiacion" className="subtle-link">
             Calcular financiación →
           </Link>
         </div>

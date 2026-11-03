@@ -454,7 +454,7 @@ export default function WallStory() {
           La secuencia muestra el concepto. La disposición y el procedimiento se
           definen para cada proyecto. VBT80 utiliza un montaje diferente.
         </p>
-        <Link href="/recursos/entender-el-sistema">
+        <Link href="/recursos#lectura-entender-el-sistema">
           Explorar la tecnología <span aria-hidden="true">↗</span>
         </Link>
       </div>

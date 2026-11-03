@@ -14,17 +14,22 @@ Node.js 22 y npm. Instalar con `npm ci`, ejecutar `npm run dev` y abrir `http://
 - Inicio: `src/app/page.tsx`.
 - Interiores: `src/app/[...slug]/page.tsx`.
 - Muro: `src/components/wall-story.tsx`.
+- Viviendas y financiación: `src/components/housing-pages.tsx` y `src/components/housing-finance.tsx`.
+- Lector de Recursos: `src/components/resource-reader.tsx`.
+- Diagrama de Red VBT: `src/components/network-diagram.tsx`.
 - Imágenes ilustrativas reemplazables: `public/images/*.webp`.
 - Logo original: `public/brand/logo-vbt.png`.
 - Inter variable y licencia OFL: `public/fonts/`.
 
-Las imágenes IA están identificadas; no documentan obras reales. Los documentos internos no se publican. El contacto prepara una consulta que el visitante revisa y envía por WhatsApp oficial. No simula almacenamiento o envío automático.
+Los renders se distinguen de las fotografías de obra. La biblioteca pública contiene únicamente los documentos seleccionados para publicar. El contacto prepara una consulta que el visitante revisa y envía por WhatsApp oficial o correo. No simula almacenamiento o envío automático.
 
 ## Revisión y publicación
 
 Proyecto Vercel: `vbt-website`. Configuración local y secretos excluidos de Git. La revisión lleva `noindex` y robots restrictivo; la indexación se habilita junto con el lanzamiento y la estrategia de dominio.
 
-La calculadora incluye capital, anticipo, plazo, tasa editable, gastos y amortización. Las referencias BNA tienen fecha de revisión; no constituyen ofertas o aprobación. `/api/finance` consulta UVA del día en BCRA. INDEC queda pendiente y usaría `INDEC_API_TOKEN` sólo en servidor; `.env.example` no incluye credenciales.
+La calculadora está integrada en `/viviendas#financiacion` e incluye capital, anticipo, plazo, tasa editable, gastos y amortización. Las referencias BNA tienen fecha de revisión; no constituyen ofertas o aprobación. `/api/finance` consulta UVA del día en BCRA. INDEC queda pendiente y usaría `INDEC_API_TOKEN` sólo en servidor; `.env.example` no incluye credenciales.
+
+Las cuatro lecturas se recorren dentro de `/recursos#lecturas`, con menú completo y navegación anterior/siguiente. Las antiguas páginas de financiación y lecturas redirigen a los fragmentos correspondientes de Viviendas y Recursos.
 
 Detalles: [implementación](docs/implementation.md).
 

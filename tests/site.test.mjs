@@ -33,7 +33,15 @@ test("Las descargas entregan los PDF completos y las rutas anteriores conservan 
   for (const [from, to] of [
     ["/casos", "/aplicaciones#casos"],
     ["/casos/escuela-dominguez", "/aplicaciones/casos/escuela-dominguez"],
-    ["/financiacion", "/viviendas/financiacion"],
+    ["/financiacion", "/viviendas#financiacion"],
+    ["/viviendas/financiacion", "/viviendas#financiacion"],
+    ["/recursos/entender-el-sistema", "/recursos#lectura-entender-el-sistema"],
+    ["/recursos/proyectar-con-vbt", "/recursos#lectura-proyectar-con-vbt"],
+    ["/recursos/montaje-y-obra", "/recursos#lectura-montaje-y-obra"],
+    [
+      "/recursos/terminaciones-y-cuidados",
+      "/recursos#lectura-terminaciones-y-cuidados",
+    ],
   ]) {
     const response = await fetch(new URL(from, base), { redirect: "manual" });
     assert.equal(response.status, 308, from);
@@ -76,9 +84,22 @@ test("Las páginas enlazadas responden y tienen un único título principal", as
     }
   }
   assert.ok(
-    seen.size >= 30,
+    seen.size >= 25,
     `Se recorrieron ${seen.size} rutas; se esperaba el catálogo completo`,
   );
+  for (const required of [
+    "/tecnologia",
+    "/aplicaciones",
+    "/viviendas",
+    "/recursos",
+    "/red",
+    "/contacto",
+  ]) {
+    assert.ok(
+      seen.has(required),
+      `${required}: debe estar enlazada en la navegación`,
+    );
+  }
 });
 test("Recursos locales disponibles y página desconocida con 404", async () => {
   for (const path of [

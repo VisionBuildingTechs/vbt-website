@@ -17,9 +17,24 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/financiacion",
-        destination: "/viviendas/financiacion",
+        destination: "/viviendas#financiacion",
         permanent: true,
       },
+      {
+        source: "/viviendas/financiacion",
+        destination: "/viviendas#financiacion",
+        permanent: true,
+      },
+      ...[
+        "entender-el-sistema",
+        "proyectar-con-vbt",
+        "montaje-y-obra",
+        "terminaciones-y-cuidados",
+      ].map((slug) => ({
+        source: `/recursos/${slug}`,
+        destination: `/recursos#lectura-${slug}`,
+        permanent: true,
+      })),
     ];
   },
   async headers() {

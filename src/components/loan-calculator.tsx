@@ -28,7 +28,11 @@ const initialAmounts = {
   amount: "75000000",
 };
 
-export default function LoanCalculator() {
+export default function LoanCalculator({
+  labelledBy,
+}: {
+  labelledBy?: string;
+}) {
   const [amounts, setAmounts] = useState(initialAmounts);
   const [mode, setMode] = useState<"uva" | "pesos">("uva");
   const [tna, setTna] = useState("6.7");
@@ -204,24 +208,26 @@ export default function LoanCalculator() {
   return (
     <section
       id="calculadora"
-      className="loan-calculator"
-      aria-labelledby="loan-title"
+      className={`loan-calculator${labelledBy ? " loan-calculator-embedded" : ""}`}
+      aria-labelledby={labelledBy ?? "loan-title"}
     >
       <div className="container">
-        <div className="loan-heading">
-          <div>
-            <p className="loan-kicker">SIMULADOR / TU ESCENARIO</p>
-            <h2 id="loan-title">
-              Poné tu proyecto
-              <br />
-              en números.
-            </h2>
+        {!labelledBy && (
+          <div className="loan-heading">
+            <div>
+              <p className="loan-kicker">SIMULADOR / TU ESCENARIO</p>
+              <h2 id="loan-title">
+                Poné tu proyecto
+                <br />
+                en números.
+              </h2>
+            </div>
+            <p>
+              Probá anticipo, capital, plazo y tasa. Compará una cuota inicial y
+              ajustá los datos a tu situación.
+            </p>
           </div>
-          <p>
-            Probá anticipo, capital, plazo y tasa. Compará una cuota inicial y
-            ajustá los datos a tu situación.
-          </p>
-        </div>
+        )}
         <div className="loan-layout">
           <div className="loan-inputs">
             <fieldset className="loan-mode">

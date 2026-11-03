@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { houseCatalog } from "@/lib/house-catalog";
 import HousingCatalog from "./housing-catalog";
+import HousingFinance from "./housing-finance";
 import "./text-accent.css";
 import "./housing.css";
 
@@ -28,40 +29,7 @@ export function HousingPage() {
         </p>
       </header>
       <HousingCatalog />
-      <section
-        className="container inner-section inner-two-column housing-finance"
-        aria-labelledby="housing-finance-title"
-      >
-        <div>
-          <p className="inner-kicker">FINANCIACIÓN PARA VIVIENDAS</p>
-          <h2 id="housing-finance-title">
-            Tu casa.
-            <br />
-            <span className="text-accent">Tus posibilidades.</span>
-          </h2>
-        </div>
-        <div className="inner-copy">
-          <p>
-            Conocé las condiciones de los créditos hipotecarios de Banco Nación
-            y explorá un escenario para tu vivienda: anticipo, capital, plazo,
-            tasa y cuota inicial.
-          </p>
-          <p>
-            El banco evalúa y otorga el préstamo. VBT puede acompañar la
-            consulta sobre el proyecto y la tecnología junto a tu profesional o
-            constructor.
-          </p>
-          <Link
-            className="button primary"
-            href="/viviendas/financiacion#calculadora"
-          >
-            Calcular financiación ↗
-          </Link>
-          <Link className="inner-action" href="/viviendas/financiacion">
-            Conocer las opciones y requisitos ↗
-          </Link>
-        </div>
-      </section>
+      <HousingFinance />
       <section className="housing-next">
         <div className="container inner-section inner-two-column">
           <div>
@@ -87,10 +55,7 @@ export function HousingPage() {
             <Link className="inner-action" href="/contacto">
               Contanos qué querés construir ↗
             </Link>
-            <Link
-              className="inner-action"
-              href="/viviendas/financiacion#calculadora"
-            >
+            <Link className="inner-action" href="/viviendas#financiacion">
               Explorar financiación ↗
             </Link>
           </div>
@@ -240,10 +205,7 @@ export function HousingDetailPage({ slug }: { slug: string }) {
             <Link className="button primary" href={consultation}>
               Consultar por {model.area} m² ↗
             </Link>
-            <Link
-              className="inner-action"
-              href="/viviendas/financiacion#calculadora"
-            >
+            <Link className="inner-action" href="/viviendas#financiacion">
               Calcular un escenario de financiación ↗
             </Link>
           </div>

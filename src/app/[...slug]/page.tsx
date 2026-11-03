@@ -4,13 +4,14 @@ import { notFound } from "next/navigation";
 import { Fragment, type ReactNode } from "react";
 import WallStory from "@/components/wall-story";
 import ContactForm from "@/components/contact-form";
-import LoanCalculator from "@/components/loan-calculator";
 import ResourceDownloads from "@/components/resource-downloads";
+import ResourceReader from "@/components/resource-reader";
+import NetworkDiagram from "@/components/network-diagram";
 import { HousingPage, HousingDetailPage } from "@/components/housing-pages";
 import { houseCatalog } from "@/lib/house-catalog";
 import ProjectMedia, { TechnologyPanels } from "@/components/project-media";
 import { contactRegions, contactEmails } from "@/lib/contact";
-import { applications, projects, resources, faqs } from "@/lib/content";
+import { applications, projects, faqs } from "@/lib/content";
 import "./interior.css";
 import "@/components/text-accent.css";
 
@@ -21,7 +22,6 @@ const mainTitles: Record<string, string> = {
   red: "Red VBT",
   empresa: "Empresa",
   viviendas: "Viviendas con VBT",
-  "viviendas/financiacion": "Financiación para viviendas",
   contacto: "Conversemos",
   "preguntas-frecuentes": "Preguntas frecuentes",
   privacidad: "Privacidad",
@@ -31,7 +31,6 @@ const paths = [
   ...Object.keys(mainTitles),
   ...applications.map((x) => `aplicaciones/${x.slug}`),
   ...projects.map((x) => `aplicaciones/casos/${x.slug}`),
-  ...resources.map((x) => `recursos/${x.slug}`),
   ...houseCatalog.map((x) => `viviendas/${x.slug}`),
 ];
 export const dynamicParams = false;
@@ -39,21 +38,14 @@ export function generateStaticParams() {
   return paths.map((path) => ({ slug: path.split("/") }));
 }
 function titleFor(path: string) {
+  if (mainTitles[path]) return mainTitles[path];
   if (path.startsWith("aplicaciones/casos/"))
     return projects.find((item) => item.slug === path.split("/")[2])?.title;
   const [section, slug] = path.split("/");
-  return (
-    mainTitles[path] ??
-    (section === "aplicaciones"
-      ? applications.find((x) => x.slug === slug)?.title
-      : section === "casos"
-        ? projects.find((x) => x.slug === slug)?.title
-        : section === "recursos"
-          ? resources.find((x) => x.slug === slug)?.title
-          : section === "viviendas"
-            ? houseCatalog.find((x) => x.slug === slug)?.title
-            : undefined)
-  );
+  if (section === "aplicaciones")
+    return applications.find((item) => item.slug === slug)?.title;
+  if (section === "viviendas")
+    return houseCatalog.find((item) => item.slug === slug)?.title;
 }
 export async function generateMetadata({
   params,
@@ -249,7 +241,7 @@ function Technology() {
             aberturas y los acabados. La tecnología aporta una forma de
             construir; cada obra determina cómo se aplica.
           </p>
-          <ArrowLink href="/recursos/entender-el-sistema">
+          <ArrowLink href="/recursos#lectura-entender-el-sistema">
             Leer la explicación de la tecnología
           </ArrowLink>
         </div>
@@ -287,13 +279,13 @@ function Technology() {
               alcance del sistema y la documentación que necesita la obra.
             </p>
             <div className="inner-text-links">
-              <ArrowLink href="/recursos/proyectar-con-vbt">
+              <ArrowLink href="/recursos#lectura-proyectar-con-vbt">
                 Proyecto y especificación
               </ArrowLink>
-              <ArrowLink href="/recursos/montaje-y-obra">
+              <ArrowLink href="/recursos#lectura-montaje-y-obra">
                 Montaje y control
               </ArrowLink>
-              <ArrowLink href="/recursos/terminaciones-y-cuidados">
+              <ArrowLink href="/recursos#lectura-terminaciones-y-cuidados">
                 Terminaciones y cuidados
               </ArrowLink>
             </div>
@@ -388,7 +380,7 @@ function ApplicationDetail({ slug }: { slug: string }) {
               <li key={p}>{p}</li>
             ))}
           </ul>
-          <ArrowLink href="/recursos/proyectar-con-vbt">
+          <ArrowLink href="/recursos#lectura-proyectar-con-vbt">
             Qué preparar para evaluar tu proyecto
           </ArrowLink>
         </div>
@@ -588,27 +580,7 @@ function Resources() {
             <span className="text-accent">entender.</span>
           </h2>
         </div>
-        <div className="inner-resource-list">
-          {resources.map((r, i) => (
-            <Link
-              key={r.slug}
-              href={`/recursos/${r.slug}`}
-              className="inner-resource-row"
-            >
-              <span className="inner-index">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div>
-                <p className="inner-kicker">{r.category}</p>
-                <h2>{r.title}</h2>
-                <p>{r.summary}</p>
-              </div>
-              <span className="inner-resource-type">
-                Guía de lectura <span aria-hidden="true">↗</span>
-              </span>
-            </Link>
-          ))}
-        </div>
+        <ResourceReader />
       </section>
       <section className="inner-tinted">
         <div className="container inner-section inner-two-column">
@@ -649,111 +621,16 @@ function Resources() {
     </>
   );
 }
-function ResourceDetail({ slug }: { slug: string }) {
-  const r = resources.find((x) => x.slug === slug);
-  if (!r) return notFound();
-  return (
-    <>
-      <Hero
-        eyebrow={`Recursos / ${r.category}`}
-        title={r.title}
-        text={r.summary}
-      />
-      <article className="container inner-reading">
-        <aside className="inner-reading-nav">
-          <p className="inner-kicker">En esta guía</p>
-          {r.sections.map((s, i) => (
-            <a key={s.title} href={`#parte-${i + 1}`}>
-              {String(i + 1).padStart(2, "0")} / {s.title}
-            </a>
-          ))}
-        </aside>
-        <div>
-          {r.sections.map((s, i) => (
-            <section
-              id={`parte-${i + 1}`}
-              key={s.title}
-              className="inner-reading-section"
-            >
-              <p className="inner-kicker">{String(i + 1).padStart(2, "0")}</p>
-              <h2>{s.title}</h2>
-              <p>{s.text}</p>
-              {s.points && (
-                <ul className="inner-points">
-                  {s.points.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-              )}
-            </section>
-          ))}
-          <div className="inner-reading-note">
-            <p>
-              Guía de lectura general. Para especificar o ejecutar una obra,
-              solicitá la documentación vigente de la familia y configuración
-              correspondiente.
-            </p>
-            <ArrowLink href="/contacto">Pedir documentación técnica</ArrowLink>
-          </div>
-        </div>
-      </article>
-      <div className="container inner-back">
-        <ArrowLink href="/recursos">Volver a recursos</ArrowLink>
-      </div>
-    </>
-  );
-}
-
 function Network() {
   return (
     <>
       <Hero
         eyebrow="Red VBT"
-        title="La tecnología conecta.<br/>Los equipos construyen."
-        text="Trabajamos con profesionales, constructoras y empresas que incorporan VBT a sus proyectos. Queremos fortalecer ese trabajo compartido."
+        title="Cada proyecto<br/>necesita un equipo."
+        accent="un equipo."
+        text="Red VBT es la forma en que conectamos tu proyecto con la tecnología y los equipos que la llevan a obra. Podés trabajar con tu arquitecto y constructor, o consultarnos para encontrar un aliado."
       />
-      <section className="container inner-section inner-two-column">
-        <div>
-          <p className="inner-kicker">Cada rol, claro</p>
-          <h2>
-            Un sistema.
-            <br />
-            Distintas responsabilidades.
-          </h2>
-        </div>
-        <div className="inner-role-list">
-          <article>
-            <span>01</span>
-            <div>
-              <h3>VBT</h3>
-              <p>
-                Tecnología, suministro del sistema y acompañamiento dentro del
-                alcance acordado.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span>02</span>
-            <div>
-              <h3>Profesionales</h3>
-              <p>
-                Proyecto, especificación y verificación técnica de la solución
-                para cada obra.
-              </p>
-            </div>
-          </article>
-          <article>
-            <span>03</span>
-            <div>
-              <h3>Empresas constructoras</h3>
-              <p>
-                Propuesta de ejecución, contrato de obra y responsabilidades de
-                su servicio.
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
+      <NetworkDiagram />
       <section className="inner-network-band">
         <div className="container inner-section inner-two-column">
           <div>
@@ -845,128 +722,6 @@ function Company() {
         </div>
       </section>
       <CTA />
-    </>
-  );
-}
-
-function Financing() {
-  return (
-    <>
-      <Hero
-        eyebrow="Viviendas / Financiación"
-        title="Tu vivienda.<br/>Tus números."
-        accent="vivienda."
-        text="Explorá un escenario para comprar o construir tu vivienda: aporte propio, monto a pedir, plazo, tasa y cuota inicial. Banco Nación evalúa y otorga el préstamo; VBT acompaña la consulta por el proyecto y la tecnología."
-      >
-        <div className="inner-inline-links">
-          <ArrowLink href="#calculadora">Ir a la calculadora</ArrowLink>
-          <ArrowLink href="/viviendas#modelos">Explorar viviendas</ArrowLink>
-        </div>
-      </Hero>
-      <LoanCalculator />
-      <section className="container inner-section inner-two-column">
-        <div>
-          <p className="inner-kicker">Banco de la Nación Argentina</p>
-          <h2>
-            Consultá condiciones
-            <br />y simulá en el banco.
-          </h2>
-        </div>
-        <div className="inner-copy">
-          <p>
-            Compra de vivienda terminada y construcción en terreno propio son
-            destinos distintos. Plazos, requisitos, costos y desembolsos
-            dependen de la línea y del perfil del solicitante.
-          </p>
-          <p>
-            Para conocer condiciones actualizadas y obtener una simulación
-            orientativa, utilizá el canal oficial de Banco Nación. Confirmá
-            también la documentación del proyecto y del proveedor que presenta
-            la oferta.
-          </p>
-          <a
-            href="https://www.bna.com.ar/Personas/SimuladorHipotecariosUva"
-            target="_blank"
-            rel="noreferrer"
-            className="inner-action"
-          >
-            Ir al simulador oficial BNA <span aria-hidden="true">↗</span>
-          </a>
-          <a
-            className="inner-source"
-            href="https://www.bna.com.ar/Personas/CreditosHipotecarios"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Ver condiciones hipotecarias BNA ↗
-          </a>
-        </div>
-      </section>
-      <section className="inner-finance-explainer">
-        <div className="container inner-section">
-          <p className="inner-kicker">Tres conceptos diferentes</p>
-          <h2>
-            La tasa. La UVA.
-            <br />
-            La inflación.
-          </h2>
-          <div className="inner-finance-columns">
-            <article>
-              <span>01 / BNA</span>
-              <h3>Condiciones del préstamo</h3>
-              <p>
-                La línea bancaria define interés, plazo, costos, requisitos y
-                modalidad de desembolso. La tasa no surge de un índice general
-                de inflación.
-              </p>
-            </article>
-            <article>
-              <span>02 / BCRA</span>
-              <h3>Valor de la UVA</h3>
-              <p>
-                En un crédito UVA, el capital y las cuotas expresados en pesos
-                varían con esa unidad. Su valor oficial corresponde a una fecha.
-              </p>
-            </article>
-            <article>
-              <span>03 / INDEC</span>
-              <h3>Contexto de precios</h3>
-              <p>
-                El IPC y el costo de construcción ayudan a leer la evolución de
-                precios. No reemplazan una cotización ni predicen una cuota
-                futura.
-              </p>
-            </article>
-          </div>
-          <p className="inner-note">
-            La calculadora permite explorar supuestos editables. Las referencias
-            bancarias indican segmento y fecha de consulta; no equivalen a una
-            cotización ni a una aprobación. Los resultados no incluyen cargos
-            que no se hayan informado.
-          </p>
-        </div>
-      </section>
-      <section className="container inner-section inner-two-column">
-        <h2>
-          Prepará la consulta.
-          <br />
-          Separá cada necesidad.
-        </h2>
-        <div className="inner-copy">
-          <ul className="inner-points">
-            <li>¿Buscás comprar una vivienda o construir en un terreno?</li>
-            <li>¿Qué aporte propio y documentación de proyecto necesitás?</li>
-            <li>¿Quién presenta la oferta y quién ejecuta la construcción?</li>
-            <li>¿Qué gastos y etapas cubre el préstamo?</li>
-          </ul>
-          <p>
-            VBT puede orientar la parte del sistema y ayudarte a conectar con
-            una empresa. La documentación financiera y la solicitud de crédito
-            se presentan ante el banco.
-          </p>
-          <ArrowLink href="/contacto">Consultar por el proyecto</ArrowLink>
-        </div>
-      </section>
     </>
   );
 }
@@ -1142,15 +897,12 @@ export default async function InteriorPage({
   const { slug } = await params;
   const path = slug.join("/");
   if (!paths.includes(path)) notFound();
-  if (path === "viviendas/financiacion") return <Financing />;
   if (slug.length === 3 && slug[0] === "aplicaciones" && slug[1] === "casos")
     return <ProjectDetail slug={slug[2]} />;
   if (slug.length === 2) {
     switch (slug[0]) {
       case "aplicaciones":
         return <ApplicationDetail slug={slug[1]} />;
-      case "recursos":
-        return <ResourceDetail slug={slug[1]} />;
       case "viviendas":
         return <HousingDetailPage slug={slug[1]} />;
     }
