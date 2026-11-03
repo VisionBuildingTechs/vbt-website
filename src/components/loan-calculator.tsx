@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { calculateLoan, validateFinancing } from "@/lib/loan-math";
+import MoneyInput from "./money-input";
 import {
   argentinaDate,
   BNA_SIMULATOR_URL,
@@ -252,18 +253,11 @@ export default function LoanCalculator() {
                 Valor del proyecto o vivienda
                 <span className="loan-input-affix">
                   <span>$</span>
-                  <input
+                  <MoneyInput
                     id="loan-total"
                     name="loan-total"
-                    type="number"
-                    min="1"
-                    max="100000000000000"
-                    step="any"
-                    inputMode="decimal"
                     value={amounts.total}
-                    onChange={(event) =>
-                      updateAmount("total", event.target.value)
-                    }
+                    onValueChange={(value) => updateAmount("total", value)}
                   />
                 </span>
               </label>
@@ -271,17 +265,11 @@ export default function LoanCalculator() {
                 Anticipo / aporte propio
                 <span className="loan-input-affix">
                   <span>$</span>
-                  <input
+                  <MoneyInput
                     id="loan-advance"
                     name="loan-advance"
-                    type="number"
-                    min="0"
-                    step="any"
-                    inputMode="decimal"
                     value={amounts.advance}
-                    onChange={(event) =>
-                      updateAmount("advance", event.target.value)
-                    }
+                    onValueChange={(value) => updateAmount("advance", value)}
                   />
                 </span>
               </label>
@@ -324,17 +312,11 @@ export default function LoanCalculator() {
               Monto a pedir
               <span className="loan-input-affix">
                 <span>$</span>
-                <input
+                <MoneyInput
                   id="loan-principal"
                   name="loan-principal"
-                  type="number"
-                  min="0"
-                  step="any"
-                  inputMode="decimal"
                   value={amounts.amount}
-                  onChange={(event) =>
-                    updateAmount("amount", event.target.value)
-                  }
+                  onValueChange={(value) => updateAmount("amount", value)}
                 />
               </span>
               <small>Si cambiás este monto, se ajusta el anticipo.</small>
@@ -439,22 +421,18 @@ export default function LoanCalculator() {
                   Valor de una UVA en pesos
                   <span className="loan-input-affix">
                     <span>$</span>
-                    <input
+                    <MoneyInput
                       id="loan-uva"
-                      type="number"
-                      min="0.01"
-                      step="0.01"
-                      inputMode="decimal"
                       placeholder={
                         loading
                           ? "Consultando BCRA…"
                           : "Opcional: ingresar valor"
                       }
                       value={manualUva || officialUva ? uva : ""}
-                      onChange={(event) => {
+                      onValueChange={(value) => {
                         editedUva.current = true;
                         setManualUva(true);
-                        setUva(event.target.value);
+                        setUva(value);
                       }}
                     />
                   </span>
@@ -492,13 +470,10 @@ export default function LoanCalculator() {
                   Gastos mensuales estimados
                   <span className="loan-input-affix">
                     <span>$</span>
-                    <input
+                    <MoneyInput
                       id="loan-charges"
-                      type="number"
-                      min="0"
-                      step="any"
                       value={charges}
-                      onChange={(event) => setCharges(event.target.value)}
+                      onValueChange={setCharges}
                     />
                   </span>
                   <small>
@@ -509,14 +484,11 @@ export default function LoanCalculator() {
                   Ingresos mensuales (opcional)
                   <span className="loan-input-affix">
                     <span>$</span>
-                    <input
+                    <MoneyInput
                       id="loan-income"
-                      type="number"
-                      min="1"
-                      step="any"
                       value={income}
                       placeholder="Sin completar"
-                      onChange={(event) => setIncome(event.target.value)}
+                      onValueChange={setIncome}
                     />
                   </span>
                   <small>
