@@ -7,6 +7,7 @@ import ContactForm from "@/components/contact-form";
 import ResourceDownloads from "@/components/resource-downloads";
 import ResourceReader from "@/components/resource-reader";
 import NetworkDiagram from "@/components/network-diagram";
+import NetworkPartners from "@/components/network-partners";
 import { HousingPage, HousingDetailPage } from "@/components/housing-pages";
 import { houseCatalog } from "@/lib/house-catalog";
 import ProjectMedia, { TechnologyPanels } from "@/components/project-media";
@@ -630,6 +631,7 @@ function Network() {
         accent="un equipo."
         text="Red VBT es la forma en que conectamos tu proyecto con la tecnología y los equipos que la llevan a obra. Podés trabajar con tu arquitecto y constructor, o consultarnos para encontrar un aliado."
       />
+      <NetworkPartners />
       <NetworkDiagram />
       <section className="inner-network-band">
         <div className="container inner-section inner-two-column">
