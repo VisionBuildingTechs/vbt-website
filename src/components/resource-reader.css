@@ -15,24 +15,29 @@
 .resource-reader-menu > .inner-kicker {
   margin-bottom: 20px;
 }
-.resource-reader-tabs {
+.resource-reader-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   border-top: 1px solid #cbd3d4;
 }
-.resource-reader-tabs button {
+.resource-reader-links > li {
+  min-width: 0;
+}
+.resource-reader-links a {
   display: flex;
   gap: 14px;
   align-items: start;
   width: 100%;
   text-align: left;
-  font: inherit;
   padding: 22px 14px;
-  border: 0;
   border-bottom: 1px solid #cbd3d4;
-  background: transparent;
   color: #60717a;
-  cursor: pointer;
 }
-.resource-reader-tabs button[aria-selected="true"] {
+.resource-reader-links a:hover {
+  background: #f0f2ed;
+}
+.resource-reader-links a[aria-current="step"] {
   background: #e7ece9;
   box-shadow: inset 3px 0 var(--blue);
   color: var(--ink);
@@ -42,18 +47,18 @@
   margin-top: 3px;
   font-variant-numeric: tabular-nums;
 }
-.resource-reader-tabs button > span:nth-child(2) {
+.resource-reader-links a > span:nth-child(2) {
   flex: 1;
   min-width: 0;
 }
-.resource-reader-tabs small {
+.resource-reader-links small {
   display: block;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 9px;
 }
-.resource-reader-tabs strong {
+.resource-reader-links strong {
   display: block;
   font-size: 14px;
   font-weight: 550;
@@ -71,48 +76,37 @@
 .resource-reader-content {
   min-width: 0;
 }
-.resource-reader-panel {
+.resource-reader-stage {
   border-top: 2px solid var(--blue);
-  padding: 25px 0 0;
+  padding-top: 30px;
   scroll-margin-top: 20px;
 }
-.resource-reader-panel[hidden] {
-  display: none;
+.resource-reader-stage + .resource-reader-stage {
+  margin-top: 85px;
 }
-.resource-reader-panel:focus {
+.resource-reader-stage:focus {
   outline: none;
 }
-.resource-reader-panel:focus-visible {
+.resource-reader-stage:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 8px;
 }
-.resource-reader-panel-top {
+.resource-reader-content .resource-reader-title {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.resource-reader-panel-top > p {
-  margin: 0;
-}
-.resource-reader-panel-top button {
-  font: inherit;
-  font-size: 11px;
-  color: #52636e;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  padding: 8px 0;
-}
-.resource-reader-panel > h3 {
-  font-size: clamp(30px, 3.6vw, 46px);
+  gap: 22px;
+  font-size: clamp(34px, 3.5vw, 48px);
+  font-weight: 850;
   letter-spacing: -0.045em;
   line-height: 1.08;
-  margin: 0 0 20px;
-  max-width: 650px;
+  margin: 0 0 24px;
+  max-width: 800px;
 }
-.resource-reader-summary {
+.resource-reader-title-number {
+  color: var(--blue);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+.resource-reader-stage-header .resource-reader-summary {
   font-size: 18px;
   color: #52636e;
   line-height: 1.65;
@@ -121,22 +115,93 @@
   margin: 0 0 35px;
 }
 .resource-reader-part {
-  margin-bottom: 34px;
+  margin-bottom: 32px;
 }
 .resource-reader-part h4 {
-  font-size: 23px;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+  margin: 0 0 14px;
 }
-.resource-reader-part > p {
+.resource-reader-content .resource-reader-part > p {
   color: #52636e;
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.8;
   margin: 0;
 }
 .resource-reader-part .inner-points {
   margin-top: 20px;
+}
+.resource-reader-action {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 18px 22px;
+  border: 1px solid #cbd3d4;
+  background: #fff;
+  margin-top: 35px;
+}
+.resource-reader-action:hover {
+  border-color: var(--blue);
+}
+.resource-reader-action-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 112px;
+  height: 100px;
+  color: var(--blue);
+  background: #eeeee7;
+}
+.resource-reader-action-image {
+  background: #fff;
+}
+.resource-reader-action-image img {
+  object-fit: contain;
+}
+.resource-reader-action-copy {
+  min-width: 0;
+  flex: 1;
+}
+.resource-reader-action-copy strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+.resource-reader-action-copy > span {
+  display: block;
+  color: #60717a;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 9px;
+}
+.resource-reader-action > svg {
+  flex-shrink: 0;
+}
+.resource-reader-continue {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 20px;
+  min-height: 56px;
+  margin-top: 25px;
+  padding: 10px 0;
+  color: #60717a;
+  text-align: right;
+  font-size: 11px;
+}
+.resource-reader-continue strong {
+  display: block;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.resource-reader-continue > svg {
+  transform: rotate(90deg);
 }
 .resource-reader-note {
   border-left: 3px solid #b18a48;
@@ -145,6 +210,7 @@
   font-size: 12px;
   line-height: 1.8;
   color: #52636e;
+  margin-top: 50px;
 }
 .resource-reader-note p {
   margin: 0 0 12px;
@@ -153,38 +219,6 @@
   color: var(--ink);
   text-decoration: underline;
   text-underline-offset: 4px;
-}
-.resource-reader-pagination {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  padding-top: 30px;
-  margin-top: 35px;
-  border-top: 1px solid #cbd3d4;
-}
-.resource-reader-pagination > button,
-.resource-reader-pagination > a {
-  display: block;
-  text-align: left;
-  font: inherit;
-  background: transparent;
-  border: 0;
-  color: var(--ink);
-  padding: 10px 0;
-  cursor: pointer;
-}
-.resource-reader-pagination > :last-child {
-  text-align: right;
-}
-.resource-reader-pagination small {
-  display: block;
-  color: #60717a;
-  font-size: 11px;
-  margin-bottom: 10px;
-}
-.resource-reader-pagination strong {
-  font-size: 17px;
-  font-weight: 600;
 }
 @media (max-width: 1000px) {
   .resource-reader-layout {
@@ -213,27 +247,28 @@
   .resource-reader-menu-note {
     display: none;
   }
-  .resource-reader-tabs {
+  .resource-reader-links {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 5px;
     border: 0;
   }
-  .resource-reader-tabs button {
+  .resource-reader-links a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-width: 0;
     min-height: 58px;
+    height: 100%;
     padding: 8px 3px;
     gap: 4px;
     border: 1px solid #cbd3d4;
     text-align: center;
   }
-  .resource-reader-tabs button[aria-selected="true"] {
+  .resource-reader-links a[aria-current="step"] {
     box-shadow: inset 0 -3px var(--blue);
   }
-  .resource-reader-tabs button > span:nth-child(2) {
+  .resource-reader-links a > span:nth-child(2) {
     flex: none;
   }
   .resource-reader-number {
@@ -241,7 +276,7 @@
     line-height: 1;
     margin: 0;
   }
-  .resource-reader-tabs small {
+  .resource-reader-links small {
     font-size: 11px;
     font-weight: 600;
     line-height: 1.4;
@@ -249,7 +284,7 @@
     text-transform: none;
     margin: 0;
   }
-  .resource-reader-tabs strong {
+  .resource-reader-links strong {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -262,30 +297,42 @@
   .resource-reader-arrow {
     display: none;
   }
-  .resource-reader-panel > h3 {
-    font-size: 34px;
+  .resource-reader-stage {
+    scroll-margin-top: 100px;
+    padding-top: 25px;
   }
-  .resource-reader-summary {
+  .resource-reader-stage + .resource-reader-stage {
+    margin-top: 60px;
+  }
+  .resource-reader-content .resource-reader-title {
+    font-size: clamp(28px, 7.4vw, 34px);
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .resource-reader-stage-header .resource-reader-summary {
     font-size: 16px;
+    padding-bottom: 25px;
+    margin-bottom: 30px;
   }
   .resource-reader-part h4 {
-    font-size: 22px;
+    font-size: 20px;
   }
-  .resource-reader-part > p {
+  .resource-reader-action {
+    gap: 14px;
+    padding: 16px 14px;
+  }
+  .resource-reader-action-visual {
+    width: 72px;
+    height: 82px;
+  }
+  .resource-reader-action-copy strong {
     font-size: 16px;
-    line-height: 1.8;
   }
-  .resource-reader-panel-top button {
+  .resource-reader-action > svg {
     display: none;
   }
   .resource-reader-note {
     padding: 20px;
-  }
-  .resource-reader-pagination {
-    gap: 15px;
-  }
-  .resource-reader-pagination strong {
-    font-size: 15px;
   }
 }
 @media (min-width: 801px) and (max-width: 1000px) and (max-height: 500px) {

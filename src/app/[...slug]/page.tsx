@@ -568,17 +568,17 @@ function Resources() {
           <ArrowLink href="#ensayo-fuego">
             Resultados del ensayo de fuego
           </ArrowLink>
-          <ArrowLink href="#lecturas">Lecturas rápidas</ArrowLink>
+          <ArrowLink href="#lecturas">Guía en cuatro etapas</ArrowLink>
         </div>
       </Hero>
       <ResourceDownloads />
       <section className="container inner-section" id="lecturas">
         <div className="inner-section-top">
-          <p className="inner-kicker">Lecturas rápidas</p>
+          <p className="inner-kicker">Guía de proyecto</p>
           <h2>
-            Antes de empezar,
+            Cuatro etapas.
             <br />
-            <span className="text-accent">entender.</span>
+            <span className="text-accent">Un recorrido.</span>
           </h2>
         </div>
         <ResourceReader />

@@ -1107,6 +1107,11 @@
     padding-bottom: 70px;
   }
 }
+@media (max-width: 360px) {
+  .inner-hero h1 {
+    font-size: 38px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .inner-action span,
   .inner-big-arrow,

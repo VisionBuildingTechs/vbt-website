@@ -29,7 +29,7 @@ Proyecto Vercel: `vbt-website`. Configuración local y secretos excluidos de Git
 
 La calculadora está integrada en `/viviendas#financiacion` e incluye capital, anticipo, plazo, tasa editable, gastos y amortización. Las referencias BNA tienen fecha de revisión; no constituyen ofertas o aprobación. `/api/finance` consulta UVA del día en BCRA. INDEC queda pendiente y usaría `INDEC_API_TOKEN` sólo en servidor; `.env.example` no incluye credenciales.
 
-Las cuatro lecturas se recorren dentro de `/recursos#lecturas`, con menú completo y navegación anterior/siguiente. Las antiguas páginas de financiación y lecturas redirigen a los fragmentos correspondientes de Viviendas y Recursos.
+Las cuatro lecturas se recorren de forma continua dentro de `/recursos#lecturas`, con títulos numerados e índice que marca la etapa visible. El menú permanece a mano en escritorio y móvil. Las antiguas páginas de financiación y lecturas redirigen a los fragmentos correspondientes de Viviendas y Recursos.
 
 Detalles: [implementación](docs/implementation.md).
 

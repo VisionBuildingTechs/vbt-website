@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { houseCatalog } from "@/lib/house-catalog";
 import HousingCatalog from "./housing-catalog";
 import HousingFinance from "./housing-finance";
+import { Arrow } from "./icons";
 import "./text-accent.css";
 import "./housing.css";
 
@@ -27,6 +28,14 @@ export function HousingPage() {
           plantas; conversemos sobre cómo adaptarlos a tu terreno y llevarlos a
           obra con tu equipo o un constructor aliado.
         </p>
+        <div className="housing-quick-links">
+          <Link href="#modelos" className="inner-action">
+            Ver proyectos y planos <Arrow />
+          </Link>
+          <Link href="#financiacion" className="inner-action">
+            Simular financiación <Arrow />
+          </Link>
+        </div>
       </header>
       <HousingCatalog />
       <HousingFinance />

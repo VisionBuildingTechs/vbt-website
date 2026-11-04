@@ -1,6 +1,22 @@
 .housing-hero {
   padding-bottom: 55px;
 }
+.housing-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin-top: 26px;
+}
+.housing-quick-links .inner-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  min-height: 44px;
+}
+.housing-quick-links svg {
+  transform: rotate(90deg);
+}
 .housing-catalog {
   padding-bottom: 100px;
   scroll-margin-top: 110px;

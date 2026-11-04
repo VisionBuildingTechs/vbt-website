@@ -67,7 +67,9 @@ export default function ProjectMedia({
       {!compact && gallery.length > 0 && (
         <details className="project-media-more">
           <summary>
-            Ver más imágenes del proyecto <span aria-hidden="true">+</span>
+            Ver {gallery.length}{" "}
+            {gallery.length === 1 ? "imagen más" : "imágenes más"} del proyecto{" "}
+            <span aria-hidden="true">+</span>
           </summary>
           <div className="project-media-gallery">
             {gallery.map((media) => (
