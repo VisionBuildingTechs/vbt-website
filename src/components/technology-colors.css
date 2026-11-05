@@ -1,0 +1,94 @@
+.inner-section.technology-colors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 8%;
+  padding-block: 60px;
+  border-top: 1px solid var(--line);
+}
+
+.technology-colors .technology-colors-copy h2 {
+  font-size: clamp(30px, 3.2vw, 44px);
+  margin-bottom: 20px;
+}
+
+.technology-colors-copy > p:not(.inner-kicker) {
+  max-width: 440px;
+  font-size: 15px;
+  color: #556269;
+}
+
+.technology-colors-samples {
+  min-width: 0;
+}
+
+.technology-colors-palette {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.technology-colors-palette li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.technology-colors-swatch {
+  display: block;
+  width: min(100%, 130px);
+  aspect-ratio: 1;
+  border: 1px solid #172f4a1f;
+  border-radius: 50%;
+}
+
+/* Display swatches sampled from visionlatam.com/tecnologia/, 05/11/2026. */
+.technology-colors-swatch[data-tone="gray"] {
+  background: #c5c5ca;
+}
+
+.technology-colors-swatch[data-tone="beige"] {
+  background: #c6baa7;
+}
+
+.technology-colors-swatch[data-tone="white"] {
+  background: #fff;
+}
+
+.technology-colors-name {
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.technology-colors-samples figcaption {
+  max-width: 360px;
+  margin: 24px auto 0;
+  color: #647077;
+  font-size: 12px;
+  line-height: 1.65;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .inner-section.technology-colors {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-block: 45px;
+  }
+
+  .technology-colors-palette {
+    gap: 16px;
+  }
+
+  .technology-colors-palette li {
+    gap: 12px;
+  }
+
+  .technology-colors-samples figcaption {
+    margin-top: 20px;
+  }
+}

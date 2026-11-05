@@ -14,6 +14,7 @@ Node.js 22 y npm. Instalar con `npm ci`, ejecutar `npm run dev` y abrir `http://
 - Inicio: `src/app/page.tsx`.
 - Interiores: `src/app/[...slug]/page.tsx`.
 - Muro: `src/components/wall-story.tsx`.
+- Colores de los muros: `src/components/technology-colors.tsx`, en `/tecnologia#colores`.
 - Viviendas y financiación: `src/components/housing-pages.tsx` y `src/components/housing-finance.tsx`.
 - Lector de Recursos: `src/components/resource-reader.tsx`.
 - Diagrama de Red VBT: `src/components/network-diagram.tsx`.

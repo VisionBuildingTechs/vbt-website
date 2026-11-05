@@ -8,6 +8,7 @@ import ResourceDownloads from "@/components/resource-downloads";
 import ResourceReader from "@/components/resource-reader";
 import NetworkDiagram from "@/components/network-diagram";
 import NetworkPartners from "@/components/network-partners";
+import TechnologyColors from "@/components/technology-colors";
 import { HousingPage, HousingDetailPage } from "@/components/housing-pages";
 import { houseCatalog } from "@/lib/house-catalog";
 import ProjectMedia, { TechnologyPanels } from "@/components/project-media";
@@ -223,6 +224,9 @@ function Technology() {
         <div className="inner-inline-links">
           <ArrowLink href="#proceso">Ver cómo se construye</ArrowLink>
           <ArrowLink href="#paneles">Ver paneles VBT80 y VBT150</ArrowLink>
+          <a href="#colores" className="inner-action">
+            Ver colores <span aria-hidden="true">↗</span>
+          </a>
           <ArrowLink href="/recursos">Explorar recursos</ArrowLink>
         </div>
       </Hero>
@@ -267,6 +271,7 @@ function Technology() {
           procedimientos no son intercambiables.
         </p>
       </section>
+      <TechnologyColors />
       <section className="inner-tinted">
         <div className="container inner-section inner-two-column">
           <div>
