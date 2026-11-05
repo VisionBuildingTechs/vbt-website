@@ -1,10 +1,16 @@
 .inner-section.technology-colors {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 8%;
+  align-items: start;
+  gap: 24px 8%;
   padding-block: 60px;
   border-top: 1px solid var(--line);
+}
+
+.technology-colors-copy {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: end;
 }
 
 .technology-colors .technology-colors-copy h2 {
@@ -18,32 +24,81 @@
   color: #556269;
 }
 
-.technology-colors-samples {
+.technology-colors-picker {
+  grid-column: 1;
+  grid-row: 2;
   min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.technology-colors-picker legend {
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 550;
+  color: #556269;
 }
 
 .technology-colors-palette {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  gap: 18px;
+  max-width: 330px;
 }
 
-.technology-colors-palette li {
+.technology-colors-option {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.technology-colors-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .technology-colors-swatch {
-  display: block;
-  width: min(100%, 130px);
+  display: grid;
+  place-items: center;
+  width: 64px;
   aspect-ratio: 1;
   border: 1px solid #172f4a1f;
   border-radius: 50%;
+  color: var(--ink);
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+}
+
+.technology-colors-option input:checked + .technology-colors-swatch {
+  outline-color: var(--blue);
+}
+
+.technology-colors-option input:focus-visible + .technology-colors-swatch {
+  outline: 3px solid var(--blue);
+  outline-offset: 6px;
+}
+
+.technology-colors-option:hover .technology-colors-name {
+  color: var(--blue);
+}
+
+.technology-colors-swatch svg {
+  visibility: hidden;
+}
+
+.technology-colors-option input:checked + .technology-colors-swatch svg {
+  visibility: visible;
 }
 
 /* Display swatches sampled from visionlatam.com/tecnologia/, 05/11/2026. */
@@ -60,35 +115,104 @@
 }
 
 .technology-colors-name {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 650;
 }
 
-.technology-colors-samples figcaption {
-  max-width: 360px;
-  margin: 24px auto 0;
+.technology-colors-preview {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.technology-colors-stage {
+  padding: 22px;
+  background: #eceee9;
+  border: 1px solid var(--line);
+}
+
+.technology-colors-model {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 20px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  color: #556269;
+}
+
+.technology-colors-panel {
+  display: block;
+  width: 100%;
+  height: clamp(290px, 27vw, 360px);
+  margin-block: 15px;
+}
+
+.technology-colors-stage .technology-colors-current {
+  font-size: 13px;
+  text-align: center;
+  margin: 0;
+}
+
+.technology-colors-preview figcaption {
+  max-width: 380px;
+  margin: 14px auto 0;
   color: #647077;
   font-size: 12px;
   line-height: 1.65;
   text-align: center;
 }
 
+.technology-colors .technology-colors-contact {
+  grid-column: 1;
+  grid-row: 3;
+  justify-self: start;
+  align-self: start;
+  margin-top: 0;
+}
+
 @media (max-width: 760px) {
   .inner-section.technology-colors {
     grid-template-columns: 1fr;
-    gap: 35px;
+    gap: 25px;
     padding-block: 45px;
   }
 
-  .technology-colors-palette {
-    gap: 16px;
+  .technology-colors-copy,
+  .technology-colors-picker,
+  .technology-colors-preview,
+  .technology-colors .technology-colors-contact {
+    grid-column: 1;
+    grid-row: auto;
   }
 
-  .technology-colors-palette li {
+  .technology-colors-palette {
+    max-width: 350px;
     gap: 12px;
   }
 
-  .technology-colors-samples figcaption {
-    margin-top: 20px;
+  .technology-colors-picker legend {
+    margin-bottom: 14px;
+  }
+
+  .technology-colors-option {
+    gap: 8px;
+    padding: 4px;
+  }
+
+  .technology-colors-swatch {
+    width: 56px;
+  }
+
+  .technology-colors-stage {
+    padding: 16px;
+  }
+
+  .technology-colors-panel {
+    height: 250px;
+    margin-block: 10px;
   }
 }
