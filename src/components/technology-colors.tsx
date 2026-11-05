@@ -15,10 +15,11 @@ export default function TechnologyColors() {
   const selected = colors.find((color) => color.tone === selectedTone)!;
   const controlId = useId();
   const filterId = `${controlId}-color`;
+  const exteriorClipId = `${controlId}-exterior`;
   const previewTitleId = `${controlId}-preview-title`;
   const previewId = `${controlId}-preview`;
 
-  // Recolor the original axonometric in sRGB while retaining its lighting and alpha.
+  // Tint the exterior only; the original image underneath keeps the interior intact.
   const colorMatrix = [
     ...selected.rgb.flatMap((channel) => {
       const value = channel / 255;
@@ -56,7 +57,7 @@ export default function TechnologyColors() {
         </p>
       </div>
       <fieldset className="technology-colors-picker">
-        <legend>Elegí un color para verlo aplicado.</legend>
+        <legend>Elegí el color de la cara exterior.</legend>
         <div className="technology-colors-palette">
           {colors.map((color) => (
             <label key={color.tone} className="technology-colors-option">
@@ -101,18 +102,44 @@ export default function TechnologyColors() {
             aria-labelledby={previewTitleId}
           >
             <title id={previewTitleId}>
-              {`Panel VBT150 9-Form en color ${selected.name.toLowerCase()}`}
+              {`Panel VBT150 9-Form con cara exterior en color ${selected.name.toLowerCase()} e interior en su color original`}
             </title>
             <defs>
+              <clipPath id={exteriorClipId} clipPathUnits="userSpaceOnUse">
+                <polygon points="278,335 590,129 590,510 278,690" />
+              </clipPath>
               <filter id={filterId} colorInterpolationFilters="sRGB">
-                <feColorMatrix type="matrix" values={colorMatrix} />
+                <feColorMatrix
+                  in="SourceGraphic"
+                  type="matrix"
+                  values={colorMatrix}
+                  result="exteriorColor"
+                />
+                {/* The original exterior is warm; the cool interior and top edges stay untouched. */}
+                <feColorMatrix
+                  in="SourceGraphic"
+                  type="matrix"
+                  values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  128 -128 0 0 0"
+                  result="exteriorMask"
+                />
+                <feComposite
+                  in="exteriorColor"
+                  in2="exteriorMask"
+                  operator="in"
+                />
               </filter>
             </defs>
             <image
               href="/images/technology/vbt150-panel.png"
               width="700"
               height="700"
+            />
+            <image
+              href="/images/technology/vbt150-panel.png"
+              width="700"
+              height="700"
               filter={`url(#${filterId})`}
+              clipPath={`url(#${exteriorClipId})`}
             />
           </svg>
           <p
@@ -120,7 +147,7 @@ export default function TechnologyColors() {
             aria-live="polite"
             aria-atomic="true"
           >
-            Vista en <strong>{selected.name.toLowerCase()}</strong>
+            Cara exterior en <strong>{selected.name.toLowerCase()}</strong>
           </p>
         </div>
         <figcaption>
